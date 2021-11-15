@@ -1,0 +1,283 @@
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header mr-1">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-12 text-center">
+            <button class="btn bg-gradient-success mr-1" (click)="open(contentSolicitacao, null)"><i class="fas fa-plus-circle"></i>Nova Solicitação</button>
+            <button class="btn bg-gradient-lightblue"><i class="fas fa-print"></i>  Imprimir</button>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content --> 
+    <section class="content ml-2 mr-2">
+
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header" style="border-bottom: none;">
+          <h3 class="card-title"><i class="fas fa-address-card mr-3"></i> Solicitações </h3>
+          <div class="card-tools">
+            <input style="width: 80vh;" type="text" class="form-control" placeholder="Pesquisa">
+            <a href="javascript:void();"><i class="icon-magnifier"></i></a>
+          </div>
+        </div>
+        <div class="card-body p-0">
+
+          <div id="printTable">
+
+            <div class="d-none d-print-inline-block p-3">
+              <img src="../../all/dist/img/sky_globo.png" style="max-width: 33px; margin-right: 8px;">
+              <img src="../../all/dist/img/sky_logo.png" style="max-width: 100px;">
+            </div>
+
+            <table class="table table-striped table-hover text-center" id="myTable">
+              <thead class="bg-gradient-light">
+                <tr>
+                  <th class="d-print-none">Ações</th>
+                  <th>Protocolo</th>
+                  <th>Data Solicitação</th>
+                  <th>Data Conclusão</th>
+                  <th>Expresa</th>
+                  <th>Valor Mercadoria</th>
+                  <th>Produto Predominante</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let item of list | paginate: { itemsPerPage: 10, currentPage: paginaAtual }">
+
+                <tr>
+                  <td>
+                    <button class="btn bg-gradient-lightblue btn-sm" (click)="open(content,item,true)"><i class="fas fa-eye"></i></button>
+                    <!-- <button class="btn bg-gradient-warning btn-sm" data-toggle="modal" data-target="#editar"><i class="fas fa-cog fa-spin"></i></button> -->
+                  </td>
+                  <td>{{item.protocolo}}</td>
+                  <td>{{item.dataregistro | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                  <td>{{item.dataconclusao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                  <td>{{item.expressa}}</td>
+                  <td>{{item.vlrmercadoria}}</td>
+                  <td>{{item.produtopred}}</td>
+                </tr>
+
+              </tbody>
+            </table>
+            <div class="pagination-controls">
+              <pagination-controls (pageChange)="paginaAtual = $event" 
+              previousLabel="Anterior"
+              nextLabel="Próximo"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Modal Detalhes-->
+  <ng-template #content>
+    <section class="content ml-2 mr-2 mt-2">
+  
+      <div class="card">
+        <div class="modal-header">
+          <h3 class="card-title"><i class="fas fa-address-card mr-3"></i>Detalhes Item</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+          </div>
+          <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="card-body p-3">
+          <table class="table table-striped table-hover text-center" id="myTable">
+            <thead class="bg-gradient-light">
+              <tr>
+                <th>Protocolo</th>
+                <th>Data Solicitação</th>
+                <th>Data Conclusão</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{dados.protocolo}}</td>
+                <td>{{dados.dataregistro | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{dados.dataconclusao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+              </tr>
+
+            </tbody>
+            <thead class="bg-gradient-light">
+              <tr>
+                <th>Expressa</th>
+                <th>Valor Mercadoria</th>
+                <th>Produto Predominante</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{dados.expressa}}</td>
+                <td>{{dados.vlrmercadoria}}</td>
+                <td>{{dados.produtopred}}</td>
+                
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="card-body p-3">
+          <button class="btn bg-gradient-success m-2"><i class="fas fa-plus-circle mr-1"></i>Adicionar Prop/Mot</button>
+          <button style="float: right;" class="btn bg-gradient-success m-2"><i class="fas fa-plus-circle mr-1"></i>Adicionar Veiculo/Carreta</button>
+          <table class="table table-striped table-hover text-center" id="myTable">
+            <tbody *ngFor="let item of sublist">
+              <tr >
+                <!-- <span style="display: contents;" (click)="open(content, item,false,tab,'editar',{empresa: contentEmpresa , email:contentEmail, tabela: contentTabela , integrador : contentIntegrador, usuario : contentUsuario})"> -->
+                  <td>{{item.cnpj}}</td>
+                  <td>{{item.razaosocial}}</td>
+                  <td>{{item.nomefantasia}}</td>
+                  <td>{{item.cpf}}</td>
+                  <td>{{item.usuario}}</td>
+                  <td>{{item.nomecontato}}</td>
+                  <td>{{item.endereco}}</td>
+                  <td>{{item.cep}}</td>
+                  <td>{{item.email}}</td>
+                  <td>{{item.validade}}</td>  
+                  <td>{{item.datacadastro}}</td>
+                <!-- </span> -->
+                  <button  class="btn bg-gradient-danger btn-sm m-1" ><i class="fas fa-power-off"></i></button>
+                  <button class="btn bg-gradient-warning btn-sm m-1" ><i class="fas fa-cog"></i></button>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+    </section>
+  </ng-template>
+
+  <!-- Modal Cadastro-->
+  <ng-template #contentSolicitacao>
+    <section class="content ml-2 mr-2 mt-2">
+  
+      <div class="card">
+        <div class="modal-header">
+          <h3 class="card-title"><i class="fas fa-address-card mr-3"></i>Nova Solicitação</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+          </div>
+          <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        
+        <div class="card-body p-3">
+  
+          <!-- 1ncode: Tipo de Solicitação -->
+          <div class="col-md-12 col-sm-12 col-12">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Tipo de Solicitação</span>
+              </div>
+              <select class="form-control" name="empresa" (click)="getTipo($event)">
+                <option>Selecione</option>
+                <option *ngFor="let item of tipo" value={{item.descricao}}>{{item.id}} - {{item.descricao}}</option>
+              </select>
+            </div>
+          </div>
+  
+          <div class="row">
+  
+            <!-- 1ncode: Nome da Empresa  -->
+            <div class="col-md-6 col-sm-6 col-12">
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Empresa</span>
+                </div>
+                <select class="form-control" name="empresa" (ngChange)="getEmpresa($event)">
+                  <option>Selecione</option>
+                  <option *ngFor="let item of empresas" value={{item.razaosocial}}>{{item.id}} - {{item.razaosocial}}</option>
+                </select>
+              </div>
+            </div>
+  
+            <!-- 1ncode: Forma de Pedido -->
+            <div class="col-md-6 col-sm-6 col-12">
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Forma Pedido</span>
+                </div>
+                <select class="form-control" name="forma_pedido" (ngChange)="getForma($event)">
+                  <option>Selecione</option>
+                  <option *ngFor="let item of forma" value={{item.descricao}}>{{item.id}}- {{item.descricao}}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- 1ncode: Data Solicitação - Novo Cadastro -->
+            <div class="col-md-6 col-sm-6 col-12">
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Data Solicitação</span>
+                </div>
+                <input type="text" name="nome_motorista" class="form-control" placeholder="00/00/0000">
+              </div>
+            </div>
+
+            <!-- 1ncode: Expressa - Novo Cadastro -->
+            <div class="col-md-6 col-sm-6 col-12">
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Expressa</span>
+                </div>
+                <select class="form-control" name="forma_pedido" (ngChange)="getExpressa($event)">
+                  <option>Selecione</option>
+                  <option value="sim">Sim</option>
+                  <option value="nao">Não</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- 1ncode: Valor Mercadoria - Novo Cadastro -->
+            <div class="col-md-6 col-sm-6 col-12">
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Valor Mercadoria</span>
+                </div>
+                <input type="text" name="nome_motorista" class="form-control" placeholder="$">
+              </div>
+            </div>
+
+            <!-- 1ncode: Produto Predominante - Novo Cadastro -->
+            <div class="col-md-6 col-sm-6 col-12">
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Produto Predominante</span>
+                </div>
+                <input type="text" name="nome_motorista" class="form-control" placeholder="...">
+              </div>
+            </div>
+
+          </div>
+          <hr>
+  
+        </div>
+  
+          <div class="card-footer p-2">
+            <button type="submit" class="btn bg-gradient-success float-right">Cadastrar</button>
+          </div>
+  
+      </div>
+  
+    </section>
+  </ng-template>
+  

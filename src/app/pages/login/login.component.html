@@ -1,0 +1,40 @@
+<body class="hold-transition login-page tela-login">
+    <div class="login-box">  
+        <div style="background-color: #001838" class="card mb-0">
+            <div style="background-color: #001838;" class="card-body login-card-body">
+    
+                <div class="login-logo">
+                    <img src="assets/images/logo-skytech.png" style="height: 80px;" alt="logo icon">
+                </div>
+    
+                <form [formGroup]="loginForm">
+                    <div class="input-group mb-1 form-group">
+                        <input type="email" name="email" class="form-control" autocomplete="off" placeholder="E-mail" formControlName="email">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center text-danger mb-3"></div>
+        
+                    <div class="input-group mb-1 form-group">
+                        <input type="password" name="password" class="form-control" autocomplete="off" placeholder="Senha" formControlName="senha">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center text-danger mb-3"></div>
+        
+                    <div class="row">
+                        <div class="col form-group">
+                            <button class="btn-light btn-block" (click)="login()"><span style="color: #001838">Entrar</span></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
