@@ -405,6 +405,11 @@ export class SoliPedidoComponent implements OnInit {
     Object.keys(this.motorista).forEach(key => this.motorista[key] = null);
     this.modalService.open(content, { size: 'lg' });
   }
+  
+  openVeiculo(content: any) {
+    Object.keys(this.veiculo).forEach(key => this.veiculo[key] = null);
+    this.modalService.open(content, { size: 'lg' });
+  }
 
   open(content: any, item: any, dados: boolean = false){
     if(dados){
