@@ -29,6 +29,7 @@ export class SoliPedidoComponent implements OnInit {
   solicitacao: any ={
     tiposolicitao: null,
     id_empresa: null,
+    empresa: null,
     id_formapedido: null,
     datasolicitacao: null,
     dataconclusao: null,
@@ -123,7 +124,7 @@ export class SoliPedidoComponent implements OnInit {
     const data = this.searchValue.toLowerCase();
     this.filteredList = this.list;
     if (this.searchValue) {
-      this.filteredList = this.list.filter(function (ele: any, i: any, array: any) {
+      this.filteredList = this.list.filter((ele: any, i: any, array: any) => {
         let match = false;
         let arrayelement = '';
         
@@ -133,22 +134,22 @@ export class SoliPedidoComponent implements OnInit {
         }
 
         if (ele.id_empresa) {
-          arrayelement = ele.id_empresa.toLowerCase();
-          arrayelement.includes(data) ? match=true : null;
-        }
-
-        if (ele.id_formapedido) {
-          arrayelement = ele.id_formapedido.toLowerCase();
+          for(let empresa of this.empresas) {
+            if(ele.id_empresa === empresa.id) { 
+              arrayelement = empresa.razaosocial.toLowerCase();
+              break;
+            }
+          };
           arrayelement.includes(data) ? match=true : null;
         }
         
-        if (ele.id_tiposolicitacao) {
-          arrayelement = ele.id_tiposolicitacao.toLowerCase();
+        if (ele.tiposolicitacao) {
+          arrayelement = ele.tiposolicitacao.toLowerCase();
           arrayelement.includes(data) ? match=true : null;
         }
 
         if (ele.datasolicitacao) {
-          arrayelement = ele.datasolicitacao.toLowerCase();
+          arrayelement = new Date(ele.datasolicitacao).toLocaleString();
           arrayelement.includes(data) ? match=true : null;
         }
 
@@ -158,8 +159,8 @@ export class SoliPedidoComponent implements OnInit {
         }
 
         if (ele.valor) {
-          arrayelement = ele.valor.toLowerCase();
-          arrayelement.includes(data) ? match=true : null;
+          arrayelement = ele.valor;
+          String(arrayelement).includes(data) ? match=true : null;
         }
 
         if (ele.produtopred) {
