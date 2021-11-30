@@ -53,11 +53,11 @@
                     <!-- <button class="btn bg-gradient-warning btn-sm" data-toggle="modal" data-target="#editar"><i class="fas fa-cog fa-spin"></i></button> -->
                   </td>
                   <td>{{item.protocolo}}</td>
-                  <td>{{item.datasolicitacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                  <td>{{item.dataconclusao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                  <td>{{item.data_solicitacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                  <td>{{item.data_conclusao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                   <td>{{item.expressa}}</td>
                   <td>{{item.valor}}</td>
-                  <td>{{item.produtopred}}</td>
+                  <td>{{item.produto_pred}}</td>
                 </tr>
 
               </tbody>
@@ -111,8 +111,8 @@
             <tbody>
               <tr>
                 <td>{{dados.protocolo}}</td>
-                <td>{{dados.datasolicitacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{dados.dataconclusao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{dados.data_solicitacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{dados.data_conclusao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
               </tr>
 
             </tbody>
@@ -127,7 +127,7 @@
               <tr>
                 <td>{{dados.expressa}}</td>
                 <td>{{dados.valor}}</td>
-                <td>{{dados.produtopred}}</td>
+                <td>{{dados.produto_pred}}</td>
                 
               </tr>
 
@@ -139,10 +139,18 @@
           <button class="btn bg-gradient-success m-2" (click)="openPropMot(contentPropMot)"><i class="fas fa-plus-circle mr-1"></i>Adicionar Prop/Mot</button>
           <button style="float: right;" class="btn bg-gradient-success m-2" (click)="openVeiculo(contentVeiculo)"><i class="fas fa-plus-circle mr-1"></i>Adicionar Veiculo/Carreta</button>
           <table class="table table-striped table-hover text-center" id="myTable">
-            <tbody *ngFor="let item of sublist">
-              <tr >
+            <thead>
+              <th>Protocolo Item</th>
+              <th>Nome Pessoa</th>
+              <th>CEP Pessoa</th>
+            </thead>
+            <tbody >
+              <tr *ngFor="let item of sublist">
                 <!-- <span style="display: contents;" (click)="open(content, item,false,tab,'editar',{empresa: contentEmpresa , email:contentEmail, tabela: contentTabela , integrador : contentIntegrador, usuario : contentUsuario})"> -->
-                  <td>{{item.cnpj}}</td>
+                  <td>{{item.protocolo}}</td>
+                  <td>{{item.pessoa_nome}}</td>
+                  <td>{{item.pessoa_cep}}</td>
+                  <!--                   <td>{{item.cnpj}}</td>
                   <td>{{item.razaosocial}}</td>
                   <td>{{item.nomefantasia}}</td>
                   <td>{{item.cpf}}</td>
@@ -152,7 +160,7 @@
                   <td>{{item.cep}}</td>
                   <td>{{item.email}}</td>
                   <td>{{item.validade}}</td>  
-                  <td>{{item.datacadastro}}</td>
+                  <td>{{item.datacadastro}}</td> -->
                 <!-- </span> -->
                   <button  class="btn bg-gradient-danger btn-sm m-1" ><i class="fas fa-power-off"></i></button>
                   <button class="btn bg-gradient-warning btn-sm m-1" ><i class="fas fa-cog"></i></button>

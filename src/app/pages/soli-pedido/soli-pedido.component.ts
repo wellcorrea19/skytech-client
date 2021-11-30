@@ -27,15 +27,19 @@ export class SoliPedidoComponent implements OnInit {
   propMotHelper = '0'; // 0 cadastrando proprietario, 1 cadastrando motorista
 
   solicitacao: any ={
-    tiposolicitao: null,
+    protocolo: null,
+    id_tipo_solicitao: null,
+    tipo_solicitacao: null,
+    id_user: null,
     id_empresa: null,
+    id_pedido: null,
+    id_forma_pedido: null,
     empresa: null,
-    id_formapedido: null,
-    datasolicitacao: null,
-    dataconclusao: null,
+    data_solicitacao: null,
+    data_conclusao: null,
     expressa: null,
     valor: null,
-    produtopred: null,
+    produto_pred: null,
   }
 
   proprietario: any = {
@@ -143,13 +147,13 @@ export class SoliPedidoComponent implements OnInit {
           arrayelement.includes(data) ? match=true : null;
         }
         
-        if (ele.tiposolicitacao) {
-          arrayelement = ele.tiposolicitacao.toLowerCase();
+        if (ele.tipo_solicitacao) {
+          arrayelement = ele.tipo_solicitacao.toLowerCase();
           arrayelement.includes(data) ? match=true : null;
         }
 
-        if (ele.datasolicitacao) {
-          arrayelement = new Date(ele.datasolicitacao).toLocaleString();
+        if (ele.data_solicitacao) {
+          arrayelement = new Date(ele.data_solicitacao).toLocaleString();
           arrayelement.includes(data) ? match=true : null;
         }
 
@@ -163,8 +167,8 @@ export class SoliPedidoComponent implements OnInit {
           String(arrayelement).includes(data) ? match=true : null;
         }
 
-        if (ele.produtopred) {
-          arrayelement = ele.produtopred.toLowerCase();
+        if (ele.produto_pred) {
+          arrayelement = ele.produto_pred.toLowerCase();
           arrayelement.includes(data) ? match=true : null;
         }
 
@@ -192,23 +196,19 @@ export class SoliPedidoComponent implements OnInit {
   // Função pegando dados
   async GetInfo() {
     const params = {
-      method: 'solicitacoes',
+      method: 'solicitacao',
       function: 'listSolicitacao',
       type: 'get'
     };
 
     this.api.AccessApi(params).then((response) => {
 
-    response.subscribe(data => {
-    switch (data.error) {
-      case (false):
+    response.subscribe((data:any) => {
         this.FillArray( 'list', data.list)
         this.filteredList = this.list;
-        break;
-        case (true):
-          this.toastr.error(data.msg);
-          break;
-        }
+      },
+      (err:any) => {
+        this.toastr.error(err.error.msg);
       });
     });
   }
@@ -216,21 +216,17 @@ export class SoliPedidoComponent implements OnInit {
   // Get pedido item
   async GetPedidoItem() {
     const params = {
-      method: 'pedidoitem/'+this.dados.id,
-      function: 'listPedidoItem',
+      method: 'pedidoitembypedido/'+this.dados.id_pedido,
+      function: 'getPedidoItemByPedido',
       type: 'get'
     };
 
     this.api.AccessApi(params).then((response) => {
-      response.subscribe(data => {
-      switch (data.error) {
-        case (false):
+      response.subscribe((data:any) => {
           this.FillArray( 'sublist', data.list)
-          break;
-          case (true):
-            this.toastr.error(data.msg);
-            break;
-          }
+        },
+        (err:any) => {
+          this.toastr.error(err.error.msg);
         });
       });
   }
@@ -238,21 +234,17 @@ export class SoliPedidoComponent implements OnInit {
   // Get tipo pedido
   async GetTipoPedido() {
     const params = {
-      method: 'tipopedidos',
+      method: 'tipopedido',
       function: 'listTipoPedido',
       type: 'get'
     };
 
     this.api.AccessApi(params).then((response) => {
-      response.subscribe(data => {
-      switch (data.error) {
-        case (false):
+      response.subscribe((data:any) => {
           this.FillArray( 'tipo', data.list)
-          break;
-          case (true):
-            this.toastr.error(data.msg);
-            break;
-          }
+        },
+        (err:any) => {
+          this.toastr.error(err.error.msg);
         });
       });
   }
@@ -260,22 +252,18 @@ export class SoliPedidoComponent implements OnInit {
   // Get empresas 
   async GetEmpresas() {
     const params = {
-      method: 'empresas',
+      method: 'empresa',
       function: 'listEmpresa',
       type: 'get'
     };
 
     this.api.AccessApi(params).then((response) => {
 
-    response.subscribe(data => {
-    switch (data.error) {
-      case (false):
+    response.subscribe((data:any) => {
         this.FillArray( 'empresas', data.list)
-        break;
-        case (true):
-          this.toastr.error(data.msg);
-          break;
-        }
+      },
+      (err:any) => {
+        this.toastr.error(err.error.msg);
       });
     });
   }
@@ -283,22 +271,18 @@ export class SoliPedidoComponent implements OnInit {
   // Get forma pedido
   async GetFormaPedido() {
     const params = {
-      method: 'formapedidos',
+      method: 'formapedido',
       function: 'listFormaPedido',
       type: 'get'
     };
 
     this.api.AccessApi(params).then((response) => {
 
-    response.subscribe(data => {
-    switch (data.error) {
-      case (false):
+    response.subscribe((data:any) => {
         this.FillArray( 'forma', data.list)
-        break;
-        case (true):
-          this.toastr.error(data.msg);
-          break;
-        }
+      },
+      (err:any) => {
+        this.toastr.error(err.error.msg);
       });
     });
   }
@@ -306,23 +290,19 @@ export class SoliPedidoComponent implements OnInit {
   // Get Cidades
   async GetCidades() {
     const params = {
-      method: 'cidades',
+      method: 'cidade',
       function: 'listCidade',
       type: 'get'
     };
 
     this.api.AccessApi(params).then((response) => {
 
-    response.subscribe(data => {
-    switch (data.error) {
-      case (false):
+    response.subscribe((data:any) => {
         this.FillArray( 'cidades', data.list)
         this.filteredCidades = this.cidades;
-        break;
-        case (true):
-          this.toastr.error(data.msg);
-          break;
-        }
+      },
+      (err:any) => {
+        this.toastr.error(err.error.msg);
       });
     });
   }
@@ -330,7 +310,7 @@ export class SoliPedidoComponent implements OnInit {
   // Get Events
   getTipo($event: any) {
     // tslint:disable-next-line:object-literal-key-quotes
-    this.solicitacao.id_tiposolicitacao = $event.target.value;
+    this.solicitacao.id_tipo_solicitacao = $event.target.value;
   }
 
   getEmpresa($event: any) {
@@ -340,12 +320,12 @@ export class SoliPedidoComponent implements OnInit {
 
   getForma($event: any) {
     // tslint:disable-next-line:object-literal-key-quotes
-    this.solicitacao.id_formapedido = $event.target.value;
+    this.solicitacao.id_forma_pedido = $event.target.value;
   }
   
   getDataSolicitacao($event: any) {
     // tslint:disable-next-line:object-literal-key-quotes
-    this.solicitacao.datasolicitacao = $event.target.value;
+    this.solicitacao.data_solicitacao = $event.target.value;
   }
 
   getExpressa($event: any) {
@@ -359,7 +339,7 @@ export class SoliPedidoComponent implements OnInit {
   }
 
   getProdutoPred($event: any) {
-    this.solicitacao.produtopred = $event.target.value;
+    this.solicitacao.produto_pred = $event.target.value;
   }
 
   // Filtrar arrays
@@ -368,6 +348,9 @@ export class SoliPedidoComponent implements OnInit {
     if (util.isArray(values)) {
       if (name === 'list') {
           this.list = values;
+      }
+      if (name === 'sublist') {
+          this.sublist = values;
       }
       if (name === 'empresas') {
         this.empresas = values;
@@ -434,18 +417,14 @@ export class SoliPedidoComponent implements OnInit {
       data:this.solicitacao
     };
     this.api.AccessApi(params).then((response) => {
-     response.subscribe(data => {
-         switch (data.error) {
-           case (false):
-             this.FillArray( 'list', data.list);
-             this.toastr.success('Cadastrado com sucesso');
-             this.GetInfo();
-             this.close();
-             break;
-           case (true):
-             this.toastr.error(data.msg);
-             break;
-           }
+     response.subscribe((data:any) => {
+          this.FillArray( 'list', data.list);
+          this.toastr.success('Cadastrado com sucesso');
+          this.GetInfo();
+          this.close();
+       },
+       (err:any) => {
+         this.toastr.error(err.error.msg);
        });
      });
   }
@@ -458,18 +437,14 @@ export class SoliPedidoComponent implements OnInit {
       data:this.proprietario
     };
     this.api.AccessApi(params).then((response) => {
-     response.subscribe(data => {
-         switch (data.error) {
-           case (false):
-             this.FillArray( 'list', data.list);
-             this.toastr.success('Cadastrado com sucesso');
-             this.GetInfo();
-             this.close();
-             break;
-           case (true):
-             this.toastr.error(data.msg);
-             break;
-           }
+     response.subscribe((data:any) => {
+          this.FillArray( 'list', data.list);
+          this.toastr.success('Cadastrado com sucesso');
+          this.GetInfo();
+          this.close();
+       },
+       (err:any) => {
+         this.toastr.error(err.error.msg);
        });
      });
   }
@@ -482,18 +457,14 @@ export class SoliPedidoComponent implements OnInit {
       data:this.motorista
     };
     this.api.AccessApi(params).then((response) => {
-     response.subscribe(data => {
-         switch (data.error) {
-           case (false):
-             this.FillArray( 'list', data.list);
-             this.toastr.success('Cadastrado com sucesso');
-             this.GetInfo();
-             this.close();
-             break;
-           case (true):
-             this.toastr.error(data.msg);
-             break;
-           }
+     response.subscribe((data:any) => {
+          this.FillArray( 'list', data.list);
+          this.toastr.success('Cadastrado com sucesso');
+          this.GetInfo();
+          this.close();
+       },
+       (err:any) => {
+         this.toastr.error(err.error.msg);
        });
      });
   }
@@ -506,20 +477,18 @@ export class SoliPedidoComponent implements OnInit {
       data:this.veiculo
     };
     this.api.AccessApi(params).then((response) => {
-     response.subscribe(data => {
-         switch (data.error) {
-           case (false):
-             this.FillArray( 'list', data.list);
-             this.toastr.success('Cadastrado com sucesso');
-             this.GetInfo();
-             this.close();
-             break;
-           case (true):
-             this.toastr.error(data.msg);
-             break;
-           }
-       });
-     });
+      response.subscribe((data:any) => {
+        this.FillArray( 'list', data.list);
+        this.toastr.success('Cadastrado com sucesso');
+        this.GetInfo();
+        this.close();
+      },
+      (err:any) => {
+        this.toastr.error(err.error.msg);
+      });
+    }).catch((error:any) => {
+      console.log(error);
+    });
   }
 
 }
