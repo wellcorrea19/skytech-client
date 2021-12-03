@@ -132,7 +132,7 @@ export class SidebarComponent implements OnInit {
   logout() {
     this.storage.remove('token');
     this.storage.remove('user');
-    window.location.reload();
+    this.router.navigate(['login']);
     this.auth.authState.next(false);
   }
 
