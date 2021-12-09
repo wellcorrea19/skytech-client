@@ -1,4 +1,3 @@
-  <app-sidebar></app-sidebar>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -77,7 +76,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <app-footer></app-footer>
+
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -238,7 +237,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Data Solicitação</span>
                 </div>
-                <input (input)="getDataSolicitacao($event)" type="date" name="nome_motorista" class="form-control" placeholder="00/00/0000">
+                <input type="date" name="nome_motorista" class="form-control" [(ngModel)]=solicitacao.data_solicitacao>
               </div>
             </div>
 
@@ -331,7 +330,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Razão Social</span>
                 </div>
-                <input [(ngModel)]=proprietario.razao type="text" name="razao" class="form-control" placeholder="Razão Social">
+                <input [(ngModel)]=proprietario.razao type="text" name="razao" class="form-control" maxlength="100" placeholder="Razão Social">
               </div>
             </div>
             
@@ -341,7 +340,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Nome Fantasia</span>
                 </div>
-                <input [(ngModel)]=proprietario.fantasia type="text" name="fantasia" class="form-control" placeholder="Nome Fantasia">
+                <input [(ngModel)]=proprietario.fantasia type="text" name="fantasia" class="form-control" maxlength="150" placeholder="Nome Fantasia">
               </div>
             </div>
             
@@ -351,7 +350,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">CNPJ</span>
                 </div>
-                <input [(ngModel)]=proprietario.cnpj type="text" name="cnpj" class="form-control" placeholder="00000000">
+                <input [(ngModel)]=proprietario.cnpj type="text" name="cnpj" class="form-control" maxlength="14" placeholder="00000000">
               </div>
             </div>
             
@@ -361,7 +360,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Inscrição Estadual</span>
                 </div>
-                <input [(ngModel)]=proprietario.ie type="text" name="ie" class="form-control" placeholder="00000000">
+                <input [(ngModel)]=proprietario.ie type="text" name="ie" class="form-control" maxlength="20" placeholder="00000000">
               </div>
             </div>
             
@@ -371,7 +370,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">RG</span>
                 </div>
-                <input [(ngModel)]=proprietario.rg type="text" name="rg" class="form-control" placeholder="00000000">
+                <input [(ngModel)]=proprietario.rg type="text" name="rg" class="form-control" maxlength="15" placeholder="00000000">
               </div>
             </div>
             
@@ -381,7 +380,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Orgão Emiss. RG</span>
                 </div>
-                <input [(ngModel)]=proprietario.orgao_emiss_rg type="text" name="orgao_emiss_rg" class="form-control" placeholder="Orgão">
+                <input [(ngModel)]=proprietario.orgao_emiss_rg type="text" name="orgao_emiss_rg" class="form-control" maxlength="6" placeholder="Orgão">
               </div>
             </div>
             
@@ -391,7 +390,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Endereço</span>
                 </div>
-                <input [(ngModel)]=proprietario.endereco type="text" name="endereco" class="form-control" placeholder="Rua">
+                <input [(ngModel)]=proprietario.endereco type="text" name="endereco" class="form-control" maxlength="200" placeholder="Rua">
               </div>
             </div>
             
@@ -401,7 +400,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Número</span>
                 </div>
-                <input [(ngModel)]=proprietario.numero type="text" name="numero" class="form-control" placeholder="Número">
+                <input id="numero-proprietario" [(ngModel)]=proprietario.numero type="text" name="numero" class="form-control" placeholder="99999">
               </div>
             </div>
             
@@ -411,7 +410,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Complemento</span>
                 </div>
-                <input [(ngModel)]=proprietario.complemento type="text" name="complemento" class="form-control" placeholder="Complemento">
+                <input [(ngModel)]=proprietario.complemento type="text" name="complemento" class="form-control" maxlength="50" placeholder="Complemento">
               </div>
             </div>
             
@@ -421,7 +420,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Bairro</span>
                 </div>
-                <input [(ngModel)]=proprietario.bairro type="text" name="bairro" class="form-control" placeholder="Bairro">
+                <input [(ngModel)]=proprietario.bairro type="text" name="bairro" class="form-control" maxlength="100" placeholder="Bairro">
               </div>
             </div>
             
@@ -431,7 +430,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">IBGE Endereço</span>
                 </div>
-                <input [(ngModel)]=proprietario.ibge_endereco type="text" name="ibge_endereco" class="form-control" placeholder="IBGE do endereço">
+                <input id="ibge-proprietario" [(ngModel)]=proprietario.ibge_endereco type="text" name="ibge_endereco" class="form-control" placeholder="IBGE do endereço">
               </div>
             </div>
             
@@ -455,7 +454,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">CEP</span>
                 </div>
-                <input [(ngModel)]=proprietario.cep type="text" name="cep" class="form-control" placeholder="CEP">
+                <input [(ngModel)]=proprietario.cep type="text" name="cep" class="form-control" maxlength="10" placeholder="CEP">
               </div>
             </div>
             
@@ -465,7 +464,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Email</span>
                 </div>
-                <input [(ngModel)]=proprietario.email type="text" name="email" class="form-control" placeholder="Email">
+                <input [(ngModel)]=proprietario.email type="email" name="email" class="form-control" maxlength="100" placeholder="Email">
               </div>
             </div>
             
@@ -475,7 +474,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Telefone</span>
                 </div>
-                <input [(ngModel)]=proprietario.telefone type="text" name="telefone" class="form-control" placeholder="(99) 99999999">
+                <input id="telefone-proprietario" [(ngModel)]=proprietario.telefone type="text" name="telefone" class="form-control" placeholder="(99) 99999999">
               </div>
             </div>
 
@@ -489,7 +488,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Nome</span>
                 </div>
-                <input [(ngModel)]=motorista.nome type="text" name="nome" class="form-control" placeholder="Nome">
+                <input [(ngModel)]=motorista.nome type="text" name="nome" class="form-control" maxlength="45" placeholder="Nome">
               </div>
             </div>
             
@@ -498,7 +497,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">CPF</span>
                 </div>
-                <input [(ngModel)]=motorista.cpf type="text" name="cpf" class="form-control" placeholder="CPF">
+                <input [(ngModel)]=motorista.cpf type="text" name="cpf" class="form-control" maxlength="11" placeholder="CPF">
               </div>
             </div>
             
@@ -516,16 +515,20 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">IBGE Cidade Nascimento</span>
                 </div>
-                <input [(ngModel)]=motorista.ibge_cidade_nascimento type="text" name="ibge-cidade-nascimento" class="form-control" placeholder="00000000">
+                <input id="ibge-nasc-motorista" [(ngModel)]=motorista.ibge_cidade_nascimento type="text" name="ibge-cidade-nascimento" class="form-control" placeholder="00000000">
               </div>
             </div>
 
             <div class="col-md-6 col-sm-6 col-12">
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
-                  <span class="input-group-text">Cidade Nascimento</span>
+                  <span class="input-group-text">Cidade Nasc.</span>
                 </div>
-                <input [(ngModel)]=motorista.id_cidade_nasc type="text" name="id-cidade-nasc" class="form-control" placeholder="Cidade Nasc">
+                <input class="col-3" type="text" (change)="searchCidade()" [(ngModel)]="searchCidadeValue">
+                <select [(ngModel)]=motorista.id_cidade_nasc class="form-control" name="id-cidade-nasc">
+                  <option value=null disabled selected>Selecione</option>
+                  <option *ngFor="let cidade of filteredCidades" [value]="cidade.id">{{cidade.nome_cidade}}</option>
+                </select>
               </div>
             </div>
             
@@ -534,7 +537,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Endereço</span>
                 </div>
-                <input [(ngModel)]=motorista.endereco type="text" name="endereco" class="form-control" placeholder="Rua">
+                <input [(ngModel)]=motorista.endereco type="text" name="endereco" class="form-control" maxlength="100" placeholder="Rua">
               </div>
             </div>
             
@@ -543,7 +546,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Bairro</span>
                 </div>
-                <input [(ngModel)]=motorista.bairro type="text" name="bairro" class="form-control" placeholder="Bairro">
+                <input [(ngModel)]=motorista.bairro type="text" name="bairro" class="form-control" maxlength="45" placeholder="Bairro">
               </div>
             </div>
             
@@ -552,7 +555,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">CEP</span>
                 </div>
-                <input [(ngModel)]=motorista.cep type="text" name="cep" class="form-control" placeholder="000000">
+                <input [(ngModel)]=motorista.cep type="text" name="cep" class="form-control" maxlength="10" placeholder="000000">
               </div>
             </div>
             
@@ -561,7 +564,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Complemento</span>
                 </div>
-                <input [(ngModel)]=motorista.complemento type="text" name="complemento" class="form-control" placeholder="Complemento">
+                <input [(ngModel)]=motorista.complemento type="text" name="complemento" class="form-control" maxlength="45" placeholder="Complemento">
               </div>
             </div>
 
@@ -570,7 +573,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Número</span>
                 </div>
-                <input [(ngModel)]=motorista.numero type="text" name="numero" class="form-control" placeholder="Número">
+                <input [(ngModel)]=motorista.numero type="text" name="numero" class="form-control" maxlength="50" placeholder="Número">
               </div>
             </div>
             
@@ -579,7 +582,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">IBGE Endereço</span>
                 </div>
-                <input [(ngModel)]=motorista.ibge_endereco type="text" name="ibge_endereco" class="form-control" placeholder="IBGE do endereço">
+                <input id="ibge-end-motorista" [(ngModel)]=motorista.ibge_endereco type="text" name="ibge_endereco" class="form-control" placeholder="IBGE do endereço">
               </div>
             </div>
 
@@ -588,7 +591,11 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Cidade</span>
                 </div>
-                <input [(ngModel)]=motorista.id_cidade_end type="text" name="id-cidade-end" class="form-control" placeholder="Cidade">
+                <input class="col-3" type="text" (change)="searchCidade()" [(ngModel)]="searchCidadeValue">
+                <select [(ngModel)]=motorista.id_cidade_end class="form-control" name="id-cidade-end">
+                  <option value=null disabled selected>Selecione</option>
+                  <option *ngFor="let cidade of filteredCidades" [value]="cidade.id">{{cidade.nome_cidade}}</option>
+                </select>
               </div>
             </div>
             
@@ -597,7 +604,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Apelido</span>
                 </div>
-                <input [(ngModel)]=motorista.apelido type="text" name="apelido" class="form-control" placeholder="Apelido">
+                <input [(ngModel)]=motorista.apelido type="text" name="apelido" class="form-control" maxlength="45" placeholder="Apelido">
               </div>
             </div>
 
@@ -619,7 +626,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">RG</span>
                 </div>
-                <input [(ngModel)]=motorista.rg type="text" name="rg" class="form-control" placeholder="00000000">
+                <input [(ngModel)]=motorista.rg type="text" name="rg" class="form-control" maxlength="15" placeholder="00000000">
               </div>
             </div>
             
@@ -628,7 +635,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Orgão Emiss. RG</span>
                 </div>
-                <input [(ngModel)]=motorista.orgao_emissor_rg type="text" name="orgao-emissor-rg" class="form-control" placeholder="Orgão">
+                <input [(ngModel)]=motorista.orgao_emissor_rg type="text" name="orgao-emissor-rg" class="form-control" maxlength="6" placeholder="Orgão">
               </div>
             </div>
             
@@ -646,7 +653,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Num. Form. CNH</span>
                 </div>
-                <input [(ngModel)]=motorista.num_form_cnh type="text" name="num-form-cnh" class="form-control" placeholder="0000000">
+                <input id="num-form-cnh-motorista" [(ngModel)]=motorista.num_form_cnh type="text" name="num-form-cnh" class="form-control" placeholder="0000000">
               </div>
             </div>
             
@@ -655,7 +662,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Num. Reg. CNH</span>
                 </div>
-                <input [(ngModel)]=motorista.num_reg_cnh type="text" name="num-reg-cnh" class="form-control" placeholder="0000000">
+                <input id="num-reg-cnh-motorista" [(ngModel)]=motorista.num_reg_cnh type="text" name="num-reg-cnh" class="form-control" placeholder="0000000">
               </div>
             </div>
             
@@ -664,7 +671,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Num. Seg. CNH</span>
                 </div>
-                <input [(ngModel)]=motorista.num_segur_cnh type="text" name="num-seg-cnh" class="form-control" placeholder="0000000">
+                <input [(ngModel)]=motorista.num_segur_cnh type="text" name="num-seg-cnh" class="form-control" maxlength="11" placeholder="0000000">
               </div>
             </div>
             
@@ -673,7 +680,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Num. Renach. CNH</span>
                 </div>
-                <input [(ngModel)]=motorista.num_renach_cnh type="text" name="num-renach-cnh" class="form-control" placeholder="0000000">
+                <input [(ngModel)]=motorista.num_renach_cnh type="text" name="num-renach-cnh" class="form-control" maxlength="15" placeholder="0000000">
               </div>
             </div>
             
@@ -682,7 +689,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">UF Emiss. CNH</span>
                 </div>
-                <input [(ngModel)]=motorista.uf_emiss_cnh type="text" name="uf-emiss-cnh" class="form-control" placeholder="UF">
+                <input [(ngModel)]=motorista.uf_emiss_cnh type="text" name="uf-emiss-cnh" class="form-control" maxlength="2" placeholder="UF">
               </div>
             </div>
             
@@ -709,7 +716,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Categoria CNH</span>
                 </div>
-                <input [(ngModel)]=motorista.categoria_cnh type="text" name="categoria-cnh" class="form-control" placeholder="Categoria">
+                <input [(ngModel)]=motorista.categoria_cnh type="text" name="categoria-cnh" class="form-control" maxlength="2" placeholder="Categoria">
               </div>
             </div>
             
@@ -749,7 +756,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Nome da Mãe</span>
                 </div>
-                <input [(ngModel)]=motorista.nome_mae type="text" name="nome-mae" class="form-control" placeholder="Nome">
+                <input [(ngModel)]=motorista.nome_mae type="text" name="nome-mae" class="form-control" maxlength="45" placeholder="Nome">
               </div>
             </div>
 
@@ -758,7 +765,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Telefone</span>
                 </div>
-                <input [(ngModel)]=motorista.telefone type="text" name="telefone" class="form-control" placeholder="(99) 99999999">
+                <input id="telefone-motorista" [(ngModel)]=motorista.telefone type="text" name="telefone" class="form-control" placeholder="(99) 99999999">
               </div>
             </div>
 
@@ -767,7 +774,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Celular</span>
                 </div>
-                <input [(ngModel)]=motorista.celular type="text" name="celular" class="form-control" placeholder="(99) 99999999">
+                <input id="celular-motorista" [(ngModel)]=motorista.celular type="text" name="celular" class="form-control" placeholder="(99) 99999999">
               </div>
             </div>
 
@@ -826,7 +833,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Placa</span>
                 </div>
-                <input [(ngModel)]=veiculo.placa type="text" name="placa" class="form-control" placeholder="Digite placa">
+                <input [(ngModel)]=veiculo.placa type="text" name="placa" class="form-control" maxlength="7" placeholder="Digite placa">
               </div>
             </div>
             
@@ -836,7 +843,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Chassi</span>
                 </div>
-                <input [(ngModel)]=veiculo.chassi type="text" name="chassi" class="form-control" placeholder="Digite chassi">
+                <input [(ngModel)]=veiculo.chassi type="text" name="chassi" class="form-control" maxlength="50" placeholder="Digite chassi">
               </div>
             </div>
             
@@ -846,7 +853,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Cor</span>
                 </div>
-                <input [(ngModel)]=veiculo.cor type="text" name="cor" class="form-control" placeholder="Digite cor">
+                <input [(ngModel)]=veiculo.cor type="text" name="cor" class="form-control" maxlength="45" placeholder="Digite cor">
               </div>
             </div>
             
@@ -856,7 +863,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Renavan</span>
                 </div>
-                <input [(ngModel)]=veiculo.renavan type="text" name="renavan" class="form-control" placeholder="0000000">
+                <input [(ngModel)]=veiculo.renavan type="text" name="renavan" class="form-control" maxlength="45" placeholder="0000000">
               </div>
             </div>
             
@@ -866,7 +873,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Ano Fabricação</span>
                 </div>
-                <input [(ngModel)]=veiculo.ano_fabricacao type="text" name="ano-fabricacao" class="form-control" placeholder="0000">
+                <input id="ano-fab-veiculo" [(ngModel)]=veiculo.ano_fabricacao type="text" name="ano-fabricacao" class="form-control" placeholder="0000">
               </div>
             </div>
             
@@ -876,7 +883,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Ano Modelo</span>
                 </div>
-                <input [(ngModel)]=veiculo.ano_modelo type="text" name="modelo" class="form-control" placeholder="Digite ano modelo">
+                <input id="ano-mod-veiculo" [(ngModel)]=veiculo.ano_modelo type="text" name="modelo" class="form-control" placeholder="Digite ano modelo">
               </div>
             </div>
             
@@ -886,7 +893,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Marca</span>
                 </div>
-                <input [(ngModel)]=veiculo.marca type="text" name="marca" class="form-control" placeholder="Digite marca">
+                <input [(ngModel)]=veiculo.marca type="text" name="marca" class="form-control" maxlength="45" placeholder="Digite marca">
               </div>
             </div>
 
@@ -896,7 +903,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Modelo</span>
                 </div>
-                <input [(ngModel)]=veiculo.modelo type="text" name="modelo" class="form-control" placeholder="Digite modelo">
+                <input [(ngModel)]=veiculo.modelo type="text" name="modelo" class="form-control" maxlength="45" placeholder="Digite modelo">
               </div>
             </div>
 

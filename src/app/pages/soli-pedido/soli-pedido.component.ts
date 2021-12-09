@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/service/api/api.service';
+import Inputmask from 'inputmask';
 
 @Component({
   selector: 'app-soli-pedido',
@@ -25,6 +26,7 @@ export class SoliPedidoComponent implements OnInit {
   searchValue:string ='';
   searchCidadeValue: string = '';
   propMotHelper = '0'; // 0 cadastrando proprietario, 1 cadastrando motorista
+  today = new Date();
 
   solicitacao: any ={
     protocolo: null,
@@ -105,7 +107,7 @@ export class SoliPedidoComponent implements OnInit {
     marca: '', 
     modelo: ''
   }
-
+  
   constructor(
     private router: Router,
     public modal: NgbActiveModal,
@@ -120,7 +122,6 @@ export class SoliPedidoComponent implements OnInit {
     this.GetFormaPedido();
     this.GetEmpresas();
     this.GetTipoPedido();
-    this.GetPedidoItem();
   }
 
   //Por enquanto está tratando pedidos que é o objeto utilizado no html desse component.
@@ -326,6 +327,7 @@ export class SoliPedidoComponent implements OnInit {
   getDataSolicitacao($event: any) {
     // tslint:disable-next-line:object-literal-key-quotes
     this.solicitacao.data_solicitacao = $event.target.value;
+    console.log($event.target.value)
   }
 
   getExpressa($event: any) {
@@ -388,11 +390,39 @@ export class SoliPedidoComponent implements OnInit {
     Object.keys(this.proprietario).forEach(key => this.proprietario[key] = null);
     Object.keys(this.motorista).forEach(key => this.motorista[key] = null);
     this.modalService.open(content, { size: 'lg' });
+
+    //inputmasks proprietario
+    const ibgeProprietario = document.getElementById('ibge-proprietario')!;
+    Inputmask({"mask": "9999999"}).mask(ibgeProprietario);
+    const numeroProprietario = document.getElementById('numero-proprietario')!;
+    Inputmask({"mask": "99999"}).mask(numeroProprietario);
+    const telefoneProprietario = document.getElementById('telefone-proprietario')!;
+    Inputmask({"mask": "(99)9{4}-9{4,5}"}).mask(telefoneProprietario);
+
+    //inputmasks motorista
+    const ibgeNascMotor = document.getElementById('ibge-nasc-motorista')!;
+    Inputmask({"mask": "9999999"}).mask(ibgeNascMotor);
+    const ibgeEndMotor = document.getElementById('ibge-end-motorista')!;
+    Inputmask({"mask": "9999999"}).mask(ibgeEndMotor);
+    const numFormCnhMotor = document.getElementById('num-form-cnh-motorista')!;
+    Inputmask({"mask": "9{1,10}"}).mask(numFormCnhMotor);
+    const numRegCnhMotor = document.getElementById('num-reg-cnh-motorista')!;
+    Inputmask({"mask": "9{1,10}"}).mask(numRegCnhMotor);
+    const telefoneMotorista = document.getElementById('telefone-motorista')!;
+    Inputmask({"mask": "(99)9{4}-9{4,5}"}).mask(telefoneMotorista);
+    const celularMotorista = document.getElementById('celular-motorista')!;
+    Inputmask({"mask": "(99)9{4}-9{4,5}"}).mask(celularMotorista);
   }
   
   openVeiculo(content: any) {
     Object.keys(this.veiculo).forEach(key => this.veiculo[key] = null);
     this.modalService.open(content, { size: 'lg' });
+
+    //inputmasks veiculo
+    const anoFabVeic = document.getElementById('ano-fab-veiculo')!;
+    Inputmask({"mask": "9999"}).mask(anoFabVeic);
+    const anoModVeic = document.getElementById('ano-mod-veiculo')!;
+    Inputmask({"mask": "9999"}).mask(anoModVeic);
   }
 
   open(content: any, item: any, dados: boolean = false){
@@ -400,7 +430,7 @@ export class SoliPedidoComponent implements OnInit {
       this.dados = item;
       this.GetPedidoItem();
     }
-
+    this.solicitacao.data_solicitacao = new Date().toLocaleDateString('en-CA');
     this.modalService.open(content, { size: 'lg' });
   }
 
