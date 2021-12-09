@@ -89,7 +89,7 @@
   
       <div class="card">
         <div class="modal-header">
-          <h3 class="card-title"><i class="fas fa-address-card mr-3"></i>Detalhes Item</h3>
+          <h3 class="card-title"><i class="fas fa-address-card mr-3"></i>Detalhes Item - {{dados.id}}</h3>
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
             <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
@@ -323,6 +323,16 @@
         
           <!-- Row Proprietário -->
           <div [hidden]="propMotHelper!=='0'" class="row">
+
+            <!-- 1ncode: CNPJ - Novo Proprietário -->
+            <div class="col-md-6 col-sm-6 col-12">
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">CNPJ/CPF</span>
+                </div>
+                <input [(ngModel)]=proprietario.cnpj type="text" name="cnpj" class="form-control" placeholder="00000000">
+              </div>
+            </div>
           
             <!-- 1ncode: Razão - Novo Proprietário -->
             <div class="col-md-6 col-sm-6 col-12">
@@ -482,24 +492,25 @@
           
           <!-- Row Motorista -->
           <div [hidden]="propMotHelper!=='1'" class="row">
+
+            <div class="col-md-6 col-sm-6 col-12">
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">CPF</span>
+                </div>
+                <input [(ngModel)]=motorista.cpf type="text" name="cpf" class="form-control" placeholder="CPF">
+              </div>
+            </div>
           
             <div class="col-md-6 col-sm-6 col-12">
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
                   <span class="input-group-text">Nome</span>
                 </div>
-                <input [(ngModel)]=motorista.nome type="text" name="nome" class="form-control" maxlength="45" placeholder="Nome">
+                <input [(ngModel)]=motorista.nome type="text" name="nome" class="form-control" placeholder="Nome">
               </div>
             </div>
             
-            <div class="col-md-6 col-sm-6 col-12">
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">CPF</span>
-                </div>
-                <input [(ngModel)]=motorista.cpf type="text" name="cpf" class="form-control" maxlength="11" placeholder="CPF">
-              </div>
-            </div>
             
             <div class="col-md-6 col-sm-6 col-12">
               <div class="input-group mb-2">
