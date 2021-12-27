@@ -26,7 +26,6 @@ export class SoliPedidoComponent implements OnInit {
   searchValue:string ='';
   searchCidadeValue: string = '';
   propMotHelper = '0'; // 0 cadastrando proprietario, 1 cadastrando motorista
-  today = new Date();
 
   solicitacao: any ={
     protocolo: null,
@@ -154,7 +153,7 @@ export class SoliPedidoComponent implements OnInit {
         }
 
         if (ele.data_solicitacao) {
-          arrayelement = new Date(ele.data_solicitacao).toLocaleString();
+          arrayelement = new Date(ele.data_solicitacao).toString();
           arrayelement.includes(data) ? match=true : null;
         }
 
@@ -430,7 +429,8 @@ export class SoliPedidoComponent implements OnInit {
       this.dados = item;
       this.GetPedidoItem();
     }
-    this.solicitacao.data_solicitacao = new Date().toLocaleDateString('en-CA');
+    
+    this.solicitacao.data_solicitacao = new Date().getFullYear().toString()+'-'+(new Date().getMonth()+1).toString()+'-'+new Date().getDate().toString();
     this.modalService.open(content, { size: 'lg' });
   }
 
