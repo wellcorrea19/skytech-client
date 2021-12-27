@@ -58,8 +58,8 @@ export class LoginComponent implements OnInit {
             case(false):
               this.util.SetStorage('token', data.token);
               this.util.SetStorage('user', data.user);
-              window.location.reload();
               this.toastr.success('Login efetuado com sucesso!');
+              this.router.navigate(['home']);
               this.auth.authState.next(true);
               break;
             case(true):
