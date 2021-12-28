@@ -27,20 +27,22 @@ export class SoliPedidoComponent implements OnInit {
   searchCidadeValue: string = '';
   propMotHelper = '0'; // 0 cadastrando proprietario, 1 cadastrando motorista
 
-  solicitacao: any ={
-    protocolo: null,
-    id_tipo_solicitao: null,
-    tipo_solicitacao: null,
-    id_user: null,
+  pedido: any ={
     id_empresa: null,
-    id_pedido: null,
-    id_forma_pedido: null,
-    empresa: null,
-    data_solicitacao: null,
-    data_conclusao: null,
+    id_user: null,
+    id_formapedido: null,
+    id_tipo_pedido: null,
+    id_classificacao: null,
+    dataregistro: null,
+    protocolo: '',
+    idexterno: null,
+    situacao: null,
+    dataconclusao: null,
     expressa: null,
-    valor: null,
-    produto_pred: null,
+    vlrmercadoria: null,
+    produtopred: null,
+    tipo_pedido: null,
+    empresa: null,
   }
 
   proprietario: any = {
@@ -147,13 +149,13 @@ export class SoliPedidoComponent implements OnInit {
           arrayelement.includes(data) ? match=true : null;
         }
         
-        if (ele.tipo_solicitacao) {
-          arrayelement = ele.tipo_solicitacao.toLowerCase();
+        if (ele.tipo_pedido) {
+          arrayelement = ele.tipo_pedido.toLowerCase();
           arrayelement.includes(data) ? match=true : null;
         }
 
-        if (ele.data_solicitacao) {
-          arrayelement = new Date(ele.data_solicitacao).toString();
+        if (ele.dataregistro) {
+          arrayelement = new Date(ele.dataregistro).toString();
           arrayelement.includes(data) ? match=true : null;
         }
 
@@ -162,13 +164,13 @@ export class SoliPedidoComponent implements OnInit {
           arrayelement.includes(data) ? match=true : null;
         }
 
-        if (ele.valor) {
-          arrayelement = ele.valor;
+        if (ele.vlrmercadoria) {
+          arrayelement = ele.vlrmercadoria;
           String(arrayelement).includes(data) ? match=true : null;
         }
 
-        if (ele.produto_pred) {
-          arrayelement = ele.produto_pred.toLowerCase();
+        if (ele.produtopred) {
+          arrayelement = ele.produtopred.toLowerCase();
           arrayelement.includes(data) ? match=true : null;
         }
 
@@ -196,8 +198,8 @@ export class SoliPedidoComponent implements OnInit {
   // Função pegando dados
   async GetInfo() {
     const params = {
-      method: 'solicitacao',
-      function: 'listSolicitacao',
+      method: 'pedido',
+      function: 'listPedido',
       type: 'get'
     };
 
@@ -216,7 +218,7 @@ export class SoliPedidoComponent implements OnInit {
   // Get pedido item
   async GetPedidoItem() {
     const params = {
-      method: 'pedidoitembypedido/'+this.dados.id_pedido,
+      method: 'pedidoitembypedido/'+this.dados.id,
       function: 'getPedidoItemByPedido',
       type: 'get'
     };
@@ -310,37 +312,37 @@ export class SoliPedidoComponent implements OnInit {
   // Get Events
   getTipo($event: any) {
     // tslint:disable-next-line:object-literal-key-quotes
-    this.solicitacao.id_tipo_solicitacao = $event.target.value;
+    this.pedido.id_tipo_pedido = $event.target.value;
   }
 
   getEmpresa($event: any) {
     // tslint:disable-next-line:object-literal-key-quotes
-    this.solicitacao.id_empresa = $event.target.value;
+    this.pedido.id_empresa = $event.target.value;
   }
 
   getForma($event: any) {
     // tslint:disable-next-line:object-literal-key-quotes
-    this.solicitacao.id_forma_pedido = $event.target.value;
+    this.pedido.id_formapedido = $event.target.value;
   }
   
-  getDataSolicitacao($event: any) {
+  getDataRegistro($event: any) {
     // tslint:disable-next-line:object-literal-key-quotes
-    this.solicitacao.data_solicitacao = $event.target.value;
+    this.pedido.dataregistro = $event.target.value;
     console.log($event.target.value)
   }
 
   getExpressa($event: any) {
     // tslint:disable-next-line:object-literal-key-quotes
-    this.solicitacao.expressa = $event.target.value;
+    this.pedido.expressa = $event.target.value;
   }
   
   getValorMercadoria($event: any) {
     // tslint:disable-next-line:object-literal-key-quotes
-    this.solicitacao.valor = $event.target.value;
+    this.pedido.vlrmercadoria = $event.target.value;
   }
 
   getProdutoPred($event: any) {
-    this.solicitacao.produto_pred = $event.target.value;
+    this.pedido.produtopred = $event.target.value;
   }
 
   // Filtrar arrays
@@ -430,7 +432,7 @@ export class SoliPedidoComponent implements OnInit {
       this.GetPedidoItem();
     }
     
-    this.solicitacao.data_solicitacao = new Date().getFullYear().toString()+'-'+(new Date().getMonth()+1).toString()+'-'+new Date().getDate().toString();
+    this.pedido.dataregistro = new Date().getFullYear().toString()+'-'+(new Date().getMonth()+1).toString()+'-'+new Date().getDate().toString();
     this.modalService.open(content, { size: 'lg' });
   }
 
@@ -441,10 +443,10 @@ export class SoliPedidoComponent implements OnInit {
   // Função inserindo dados
   async insertInfo() {
     const params = {
-      method: 'solicitacao',
-      function: 'insertSolicitacao',
+      method: 'pedido',
+      function: 'insertPedido',
       type: 'post',
-      data:this.solicitacao
+      data:this.pedido
     };
     this.api.AccessApi(params).then((response) => {
      response.subscribe((data:any) => {

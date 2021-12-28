@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12 text-center">
-            <button class="btn bg-gradient-success mr-1" (click)="open(contentSolicitacao, null)"><i class="fas fa-plus-circle"></i>Nova Solicitação</button>
+            <button class="btn bg-gradient-success mr-1" (click)="open(contentPedido, null)"><i class="fas fa-plus-circle"></i>Novo Pedido</button>
             <button class="btn bg-gradient-lightblue"><i class="fas fa-print"></i>  Imprimir</button>
           </div>
         </div>
@@ -18,7 +18,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header" style="border-bottom: none;">
-          <h3 class="card-title"><i class="fas fa-address-card mr-3"></i> Solicitações </h3>
+          <h3 class="card-title"><i class="fas fa-address-card mr-3"></i> Pedidos </h3>
           <div class="card-tools">
             <input [(ngModel)]="searchValue" (input)="search()" style="width: 80vh;" type="text" class="form-control" placeholder="Pesquisa">
             <a href="javascript:void();"><i class="icon-magnifier"></i></a>
@@ -38,7 +38,7 @@
                 <tr>
                   <th class="d-print-none">Ações</th>
                   <th>Protocolo</th>
-                  <th>Data Solicitação</th>
+                  <th>Data Registro</th>
                   <th>Data Conclusão</th>
                   <th>Expresa</th>
                   <th>Valor Mercadoria</th>
@@ -53,11 +53,11 @@
                     <!-- <button class="btn bg-gradient-warning btn-sm" data-toggle="modal" data-target="#editar"><i class="fas fa-cog fa-spin"></i></button> -->
                   </td>
                   <td>{{item.protocolo}}</td>
-                  <td>{{item.data_solicitacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                  <td>{{item.data_conclusao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                  <td>{{item.dataregistro | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                  <td>{{item.dataconclusao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                   <td>{{item.expressa}}</td>
-                  <td>{{item.valor}}</td>
-                  <td>{{item.produto_pred}}</td>
+                  <td>{{item.vlrmercadoria}}</td>
+                  <td>{{item.produtopred}}</td>
                 </tr>
 
               </tbody>
@@ -104,15 +104,15 @@
             <thead class="bg-gradient-light">
               <tr>
                 <th>Protocolo</th>
-                <th>Data Solicitação</th>
+                <th>Data Registro</th>
                 <th>Data Conclusão</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>{{dados.protocolo}}</td>
-                <td>{{dados.data_solicitacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{dados.data_conclusao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{dados.dataregistro | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{dados.dataconclusao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
               </tr>
 
             </tbody>
@@ -126,8 +126,8 @@
             <tbody>
               <tr>
                 <td>{{dados.expressa}}</td>
-                <td>{{dados.valor}}</td>
-                <td>{{dados.produto_pred}}</td>
+                <td>{{dados.vlrmercadoria}}</td>
+                <td>{{dados.produtopred}}</td>
                 
               </tr>
 
@@ -173,12 +173,12 @@
   </ng-template>
 
   <!-- Modal Cadastro-->
-  <ng-template #contentSolicitacao>
+  <ng-template #contentPedido>
     <section class="content ml-2 mr-2 mt-2">
   
       <div class="card">
         <div class="modal-header">
-          <h3 class="card-title"><i class="fas fa-address-card mr-3"></i>Nova Solicitação</h3>
+          <h3 class="card-title"><i class="fas fa-address-card mr-3"></i>Novo Pedido</h3>
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
             <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
@@ -190,13 +190,13 @@
         
         <div class="card-body p-3">
   
-          <!-- 1ncode: Tipo de Solicitação -->
+          <!-- 1ncode: Tipo de Pedido -->
           <div class="col-md-12 col-sm-12 col-12">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text">Tipo de Solicitação</span>
+                <span class="input-group-text">Tipo de Pedido</span>
               </div>
-              <select class="form-control" name="empresa" (change)="getTipo($event)">
+              <select class="form-control" name="tipo-pedido" (change)="getTipo($event)">
                 <option>Selecione</option>
                 <option *ngFor="let item of tipo" value={{item.id}}>{{item.id}} - {{item.descricao}}</option>
               </select>
@@ -231,13 +231,13 @@
               </div>
             </div>
 
-            <!-- 1ncode: Data Solicitação - Novo Cadastro -->
+            <!-- 1ncode: Data Registro - Novo Cadastro -->
             <div class="col-md-6 col-sm-6 col-12">
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
-                  <span class="input-group-text">Data Solicitação</span>
+                  <span class="input-group-text">Data Registro</span>
                 </div>
-                <input type="date" name="data-solicitacao" class="form-control" [(ngModel)]=solicitacao.data_solicitacao>
+                <input type="date" name="data-registro" class="form-control" [(ngModel)]=pedido.dataregistro>
               </div>
             </div>
 
@@ -261,7 +261,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Valor Mercadoria</span>
                 </div>
-                <input (input)="getValorMercadoria($event)" type="text" name="nome_motorista" class="form-control" placeholder="$">
+                <input (input)="getValorMercadoria($event)" type="text" name="vlr-mercadoria" class="form-control" placeholder="$">
               </div>
             </div>
 
