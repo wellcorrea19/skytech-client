@@ -1,3 +1,4 @@
+  <app-sidebar></app-sidebar>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -76,7 +77,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
+  <app-footer></app-footer>
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -162,8 +163,8 @@
                   <td>{{item.validade}}</td>  
                   <td>{{item.datacadastro}}</td> -->
                 <!-- </span> -->
-                  <button  class="btn bg-gradient-danger btn-sm m-1" ><i class="fas fa-power-off"></i></button>
-                  <button class="btn bg-gradient-warning btn-sm m-1" ><i class="fas fa-cog"></i></button>
+                  <!-- <button  class="btn bg-gradient-danger btn-sm m-1" ><i class="fas fa-power-off"></i></button>
+                  <button class="btn bg-gradient-warning btn-sm m-1" ><i class="fas fa-cog"></i></button> -->
               </tr>
             </tbody>
         </table>
@@ -330,7 +331,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">CNPJ/CPF</span>
                 </div>
-                <input [(ngModel)]=proprietario.cnpj type="text" name="cnpj" class="form-control" placeholder="00000000">
+                <input [(ngModel)]=proprietario.cnpj type="text" name="cnpj" maxlength="14" class="form-control" placeholder="00000000">
               </div>
             </div>
             
@@ -351,16 +352,6 @@
                   <span class="input-group-text">Nome Fantasia</span>
                 </div>
                 <input [(ngModel)]=proprietario.fantasia type="text" name="fantasia" class="form-control" maxlength="150" placeholder="Nome Fantasia">
-              </div>
-            </div>
-            
-            <!-- 1ncode: CNPJ - Novo Proprietário -->
-            <div class="col-md-6 col-sm-6 col-12">
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">CNPJ</span>
-                </div>
-                <input [(ngModel)]=proprietario.cnpj type="text" name="cnpj" class="form-control" maxlength="14" placeholder="00000000">
               </div>
             </div>
             
@@ -843,7 +834,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Placa</span>
                 </div>
-                <input [(ngModel)]=veiculo.placa type="text" name="placa" class="form-control" maxlength="7" placeholder="Digite placa">
+                <input [(ngModel)]=veiculo.placa type="text" name="placa" class="form-control text-uppercase" maxlength="7" placeholder="Digite placa">
               </div>
             </div>
             
@@ -853,7 +844,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Chassi</span>
                 </div>
-                <input [(ngModel)]=veiculo.chassi type="text" name="chassi" class="form-control" maxlength="50" placeholder="Digite chassi">
+                <input [(ngModel)]=veiculo.chassi type="text" name="chassi" class="form-control text-uppercase" maxlength="50" placeholder="Digite chassi">
               </div>
             </div>
             
@@ -863,7 +854,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Cor</span>
                 </div>
-                <input [(ngModel)]=veiculo.cor type="text" name="cor" class="form-control" maxlength="45" placeholder="Digite cor">
+                <input [(ngModel)]=veiculo.cor type="text" name="cor" class="form-control text-uppercase" maxlength="45" placeholder="Digite cor">
               </div>
             </div>
             
@@ -873,7 +864,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Renavan</span>
                 </div>
-                <input [(ngModel)]=veiculo.renavan type="text" name="renavan" class="form-control" maxlength="45" placeholder="0000000">
+                <input [(ngModel)]=veiculo.renavan type="text" name="renavan" class="form-control text-uppercase" maxlength="45" placeholder="0000000">
               </div>
             </div>
             
@@ -883,7 +874,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Ano Fabricação</span>
                 </div>
-                <input id="ano-fab-veiculo" [(ngModel)]=veiculo.ano_fabricacao type="text" name="ano-fabricacao" class="form-control" placeholder="0000">
+                <input id="ano-fab-veiculo" [(ngModel)]=veiculo.ano_fabricacao type="text" name="ano-fabricacao" class="form-control text-uppercase" placeholder="0000">
               </div>
             </div>
             
@@ -893,7 +884,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Ano Modelo</span>
                 </div>
-                <input id="ano-mod-veiculo" [(ngModel)]=veiculo.ano_modelo type="text" name="modelo" class="form-control" placeholder="Digite ano modelo">
+                <input id="ano-mod-veiculo" [(ngModel)]=veiculo.ano_modelo type="text" name="modelo" class="form-control text-uppercase" placeholder="Digite ano modelo">
               </div>
             </div>
             
@@ -903,7 +894,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Marca</span>
                 </div>
-                <input [(ngModel)]=veiculo.marca type="text" name="marca" class="form-control" maxlength="45" placeholder="Digite marca">
+                <input [(ngModel)]=veiculo.marca type="text" name="marca" class="form-control text-uppercase" maxlength="45" placeholder="Digite marca">
               </div>
             </div>
 
@@ -913,7 +904,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Modelo</span>
                 </div>
-                <input [(ngModel)]=veiculo.modelo type="text" name="modelo" class="form-control" maxlength="45" placeholder="Digite modelo">
+                <input [(ngModel)]=veiculo.modelo type="text" name="modelo" class="form-control text-uppercase" maxlength="45" placeholder="Digite modelo">
               </div>
             </div>
 
