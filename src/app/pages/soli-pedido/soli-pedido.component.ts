@@ -22,12 +22,17 @@ export class SoliPedidoComponent implements OnInit {
   filteredCidades: any;
   tipo: any;
   sublist: any;
+  propList: any;
+  motoList: any;
+  veicList: any;
+  pedidoNgTemplate: null;
 
   searchValue:string ='';
   searchCidadeValue: string = '';
   propMotHelper = '0'; // 0 cadastrando proprietario, 1 cadastrando motorista
 
   pedido: any ={
+    id: null,
     id_empresa: null,
     id_user: null,
     id_formapedido: null,
@@ -60,7 +65,8 @@ export class SoliPedidoComponent implements OnInit {
     id_cidade_end: '', 
     cep: '', 
     email: '', 
-    telefone: ''
+    telefone: '',
+    pedido_id: null,
   }
 
   motorista: any = {
@@ -94,7 +100,8 @@ export class SoliPedidoComponent implements OnInit {
     id_cidade_nasc: '', 
     id_cidade_end: '', 
     telefone: '', 
-    celular: ''
+    celular: '',
+    pedido_id: null,
   }
 
   veiculo: any = {
@@ -106,7 +113,8 @@ export class SoliPedidoComponent implements OnInit {
     ano_fabricacao: '', 
     ano_modelo: '',
     marca: '', 
-    modelo: ''
+    modelo: '',
+    pedido_id: null,
   }
   
   constructor(
@@ -195,6 +203,10 @@ export class SoliPedidoComponent implements OnInit {
     }
   }
 
+  expandTable(tableId: string) {
+    const table = document.getElementById(tableId)?.classList.toggle('d-none');
+  }
+
   // Função pegando dados
   async GetInfo() {
     const params = {
@@ -226,6 +238,63 @@ export class SoliPedidoComponent implements OnInit {
     this.api.AccessApi(params).then((response) => {
       response.subscribe((data:any) => {
           this.FillArray( 'sublist', data.list)
+        },
+        (err:any) => {
+          this.toastr.error(err.error.msg);
+        });
+      });
+  }
+  
+  // Get proprietario
+  async GetProprietario() {
+    const pedido_id = this.pedido.id;
+    const params = {
+      method: `proprietariobypedido/${pedido_id}`,
+      function: 'listProprietarioByPedido',
+      type: 'get'
+    };
+
+    this.api.AccessApi(params).then((response) => {
+      response.subscribe((data:any) => {
+          this.FillArray( 'proprietarios', data.list)
+        },
+        (err:any) => {
+          this.toastr.error(err.error.msg);
+        });
+      });
+  }
+  
+  // Get motorista
+  async GetMotorista() {
+    const pedido_id = this.pedido.id;
+    const params = {
+      method: `motoristabypedido/${pedido_id}`,
+      function: 'listMotoristaByPedido',
+      type: 'get'
+    };
+
+    this.api.AccessApi(params).then((response) => {
+      response.subscribe((data:any) => {
+          this.FillArray( 'motoristas', data.list)
+        },
+        (err:any) => {
+          this.toastr.error(err.error.msg);
+        });
+      });
+  }
+  
+  // Get veiculo
+  async GetVeiculo() {
+    const pedido_id = this.pedido.id;
+    const params = {
+      method: `veiculobypedido/${pedido_id}`,
+      function: 'listVeiculoByPedido',
+      type: 'get'
+    };
+
+    this.api.AccessApi(params).then((response) => {
+      response.subscribe((data:any) => {
+          this.FillArray( 'veiculos', data.list)
         },
         (err:any) => {
           this.toastr.error(err.error.msg);
@@ -346,14 +415,33 @@ export class SoliPedidoComponent implements OnInit {
   }
 
   // Filtrar arrays
-  FillArray(name: string, values: any) {
+  FillArray(name: string, values: Array<any>) {    
     var util = require('type-util');
     if (util.isArray(values)) {
+      //pedidos
       if (name === 'list') {
-          this.list = values;
+        values.sort(function (a: any, b: any) {
+          if (a.dataregistro > b.dataregistro) {
+            return 1;
+          }
+    
+          return -1;
+        });
+        this.list = values;
       }
+      //pedido itens
       if (name === 'sublist') {
-          this.sublist = values;
+        this.sublist = values;
+      }
+      if (name === 'proprietarios') {
+        this.propList = values;
+      }
+      if (name === 'veiculos') {
+        console.log(values)
+        this.veicList = values;
+      }
+      if (name === 'motoristas') {
+        this.motoList = values;
       }
       if (name === 'empresas') {
         this.empresas = values;
@@ -429,10 +517,14 @@ export class SoliPedidoComponent implements OnInit {
   open(content: any, item: any, dados: boolean = false){
     if(dados){
       this.dados = item;
+      this.pedido = this.dados;
+      this.pedidoNgTemplate = content;
       this.GetPedidoItem();
+      this.GetProprietario();
+      this.GetMotorista();
+      this.GetVeiculo();
     }
     
-    this.pedido.dataregistro = new Date().getFullYear().toString()+'-'+(new Date().getMonth()+1).toString()+'-'+new Date().getDate().toString();
     this.modalService.open(content, { size: 'lg' });
   }
 
@@ -462,6 +554,7 @@ export class SoliPedidoComponent implements OnInit {
   }
   
   async insertProprietario() {
+    this.proprietario.pedido_id = this.pedido.id;
     const params = {
       method: 'proprietario',
       function: 'insertProprietario',
@@ -474,6 +567,7 @@ export class SoliPedidoComponent implements OnInit {
           this.toastr.success('Cadastrado com sucesso');
           this.GetInfo();
           this.close();
+          this.open(this.pedidoNgTemplate, this.pedido, true);
        },
        (err:any) => {
          this.toastr.error(err.error.msg);
@@ -482,6 +576,7 @@ export class SoliPedidoComponent implements OnInit {
   }
 
   async insertMotorista() {
+    this.motorista.pedido_id = this.pedido.id;
     const params = {
       method: 'motorista',
       function: 'insertMotorista',
@@ -494,6 +589,7 @@ export class SoliPedidoComponent implements OnInit {
           this.toastr.success('Cadastrado com sucesso');
           this.GetInfo();
           this.close();
+          this.open(this.pedidoNgTemplate, this.pedido, true);
        },
        (err:any) => {
          this.toastr.error(err.error.msg);
@@ -502,6 +598,7 @@ export class SoliPedidoComponent implements OnInit {
   }
 
   async insertVeiculo() {
+    this.veiculo.pedido_id = this.pedido.id;
     const params = {
       method: 'veiculo',
       function: 'insertVeiculo',
@@ -514,6 +611,7 @@ export class SoliPedidoComponent implements OnInit {
         this.toastr.success('Cadastrado com sucesso');
         this.GetInfo();
         this.close();
+        this.open(this.pedidoNgTemplate, this.pedido, true);
       },
       (err:any) => {
         this.toastr.error(err.error.msg);
