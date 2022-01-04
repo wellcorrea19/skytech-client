@@ -39,6 +39,7 @@
                 <tr>
                   <th class="d-print-none">Ações</th>
                   <th>Protocolo</th>
+                  <th>Status</th>
                   <th>Data Registro</th>
                   <th>Data Conclusão</th>
                   <th>Expresa</th>
@@ -54,6 +55,19 @@
                     <!-- <button class="btn bg-gradient-warning btn-sm" data-toggle="modal" data-target="#editar"><i class="fas fa-cog fa-spin"></i></button> -->
                   </td>
                   <td>{{item.protocolo}}</td>
+                  <td>
+                    <div>
+                      <div style="background: #afafaf;" class="fundo-stts" *ngIf="item.situacao === 1">
+                        <p class="stts" >PENDENTE</p>
+                      </div>
+                      <div style="background: orange;" class="fundo-stts" *ngIf="item.situacao === 2">
+                        <p class="stts" >AGUARDANDO</p>
+                      </div>
+                      <div style="background: #00e600" class="fundo-stts" *ngIf="item.situacao === 3">
+                        <p class="stts" >CONCLUIDO</p>
+                      </div>
+                    </div>
+                  </td>
                   <td>{{item.dataregistro | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                   <td>{{item.dataconclusao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                   <td>{{item.expressa}}</td>
