@@ -414,37 +414,43 @@ export class SoliPedidoComponent implements OnInit {
   }
 
   // Filtrar arrays
-  FillArray(name: string, values: any) {
-    var util = require('type-util');
-    if (util.isArray(values)) {
-      if (name === 'list') {
-          this.list = values;
-      }
-      if (name === 'sublist') {
-          this.sublist = values;
-      }
-      if (name === 'proprietarios') {
-        this.propList = values;
-      }
-      if (name === 'veiculos') {
-        console.log(values)
-        this.veicList = values;
-      }
-      if (name === 'motoristas') {
-        this.motoList = values;
-      }
-      if (name === 'empresas') {
-        this.empresas = values;
-      }
-      if (name === 'forma') {
-        this.forma = values;
-      }
-      if (name === 'cidades') {
-        this.cidades = values;
-      }
-      if (name === 'tipo') {
-        this.tipo = values;
-      }
+  FillArray(name: string, values: Array<any>) {    
+    //pedidos
+    if (name === 'list') {
+      values.sort(function (a: any, b: any) {
+        if (a.dataregistro > b.dataregistro) {
+          return 1;
+        }
+  
+        return -1;
+      });
+      this.list = values;
+    }
+    //pedido itens
+    if (name === 'sublist') {
+      this.sublist = values;
+    }
+    if (name === 'proprietarios') {
+      this.propList = values;
+    }
+    if (name === 'veiculos') {
+      console.log(values)
+      this.veicList = values;
+    }
+    if (name === 'motoristas') {
+      this.motoList = values;
+    }
+    if (name === 'empresas') {
+      this.empresas = values;
+    }
+    if (name === 'forma') {
+      this.forma = values;
+    }
+    if (name === 'cidades') {
+      this.cidades = values;
+    }
+    if (name === 'tipo') {
+      this.tipo = values;
     }
   }
 
