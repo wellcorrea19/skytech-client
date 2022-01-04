@@ -25,6 +25,7 @@ export class SoliPedidoComponent implements OnInit {
   propList: any;
   motoList: any;
   veicList: any;
+  pedidoNgTemplate: null;
 
   searchValue:string ='';
   searchCidadeValue: string = '';
@@ -415,42 +416,45 @@ export class SoliPedidoComponent implements OnInit {
 
   // Filtrar arrays
   FillArray(name: string, values: Array<any>) {    
-    //pedidos
-    if (name === 'list') {
-      values.sort(function (a: any, b: any) {
-        if (a.dataregistro > b.dataregistro) {
-          return 1;
-        }
-  
-        return -1;
-      });
-      this.list = values;
-    }
-    //pedido itens
-    if (name === 'sublist') {
-      this.sublist = values;
-    }
-    if (name === 'proprietarios') {
-      this.propList = values;
-    }
-    if (name === 'veiculos') {
-      console.log(values)
-      this.veicList = values;
-    }
-    if (name === 'motoristas') {
-      this.motoList = values;
-    }
-    if (name === 'empresas') {
-      this.empresas = values;
-    }
-    if (name === 'forma') {
-      this.forma = values;
-    }
-    if (name === 'cidades') {
-      this.cidades = values;
-    }
-    if (name === 'tipo') {
-      this.tipo = values;
+    var util = require('type-util');
+    if (util.isArray(values)) {
+      //pedidos
+      if (name === 'list') {
+        values.sort(function (a: any, b: any) {
+          if (a.dataregistro > b.dataregistro) {
+            return 1;
+          }
+    
+          return -1;
+        });
+        this.list = values;
+      }
+      //pedido itens
+      if (name === 'sublist') {
+        this.sublist = values;
+      }
+      if (name === 'proprietarios') {
+        this.propList = values;
+      }
+      if (name === 'veiculos') {
+        console.log(values)
+        this.veicList = values;
+      }
+      if (name === 'motoristas') {
+        this.motoList = values;
+      }
+      if (name === 'empresas') {
+        this.empresas = values;
+      }
+      if (name === 'forma') {
+        this.forma = values;
+      }
+      if (name === 'cidades') {
+        this.cidades = values;
+      }
+      if (name === 'tipo') {
+        this.tipo = values;
+      }
     }
   }
 
@@ -514,13 +518,13 @@ export class SoliPedidoComponent implements OnInit {
     if(dados){
       this.dados = item;
       this.pedido = this.dados;
+      this.pedidoNgTemplate = content;
       this.GetPedidoItem();
       this.GetProprietario();
       this.GetMotorista();
       this.GetVeiculo();
     }
     
-    console.log(this.pedido);
     this.modalService.open(content, { size: 'lg' });
   }
 
@@ -563,6 +567,7 @@ export class SoliPedidoComponent implements OnInit {
           this.toastr.success('Cadastrado com sucesso');
           this.GetInfo();
           this.close();
+          this.open(this.pedidoNgTemplate, this.pedido, true);
        },
        (err:any) => {
          this.toastr.error(err.error.msg);
@@ -584,6 +589,7 @@ export class SoliPedidoComponent implements OnInit {
           this.toastr.success('Cadastrado com sucesso');
           this.GetInfo();
           this.close();
+          this.open(this.pedidoNgTemplate, this.pedido, true);
        },
        (err:any) => {
          this.toastr.error(err.error.msg);
@@ -605,6 +611,7 @@ export class SoliPedidoComponent implements OnInit {
         this.toastr.success('Cadastrado com sucesso');
         this.GetInfo();
         this.close();
+        this.open(this.pedidoNgTemplate, this.pedido, true);
       },
       (err:any) => {
         this.toastr.error(err.error.msg);
