@@ -53,8 +53,8 @@
                     <!-- <button class="btn bg-gradient-warning btn-sm" data-toggle="modal" data-target="#editar"><i class="fas fa-cog fa-spin"></i></button> -->
                   </td>
                   <td>{{item.protocolo}}</td>
-                  <td>{{item.dataregistro | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                  <td>{{item.dataconclusao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                  <td>{{item.dataregistro | date:'dd/MM/yyyy HH:mm:ss':'+0000'}}</td>
+                  <td>{{item.dataconclusao | date:'dd/MM/yyyy HH:mm:ss':'+0000'}}</td>
                   <td>{{item.expressa}}</td>
                   <td>{{item.vlrmercadoria}}</td>
                   <td>{{item.produtopred}}</td>
@@ -111,8 +111,8 @@
             <tbody>
               <tr>
                 <td>{{dados.protocolo}}</td>
-                <td>{{dados.dataregistro | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{dados.dataconclusao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{dados.dataregistro | date:'dd/MM/yyyy HH:mm:ss':'+0000' }}</td>
+                <td>{{dados.dataconclusao | date:'dd/MM/yyyy HH:mm:ss':'+0000'}}</td>
               </tr>
 
             </tbody>
@@ -291,7 +291,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Data Registro</span>
                 </div>
-                <input type="date" name="data-registro" class="form-control" [(ngModel)]=pedido.dataregistro>
+                <input type="datetime-local" name="data-registro" class="form-control" [(ngModel)]=pedido.dataregistro>
               </div>
             </div>
 
