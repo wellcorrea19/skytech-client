@@ -519,7 +519,6 @@ export class SoliPedidoComponent implements OnInit {
       this.dados = item;
       this.pedido = this.dados;
       this.pedidoNgTemplate = content;
-      this.GetPedidoItem();
       this.GetProprietario();
       this.GetMotorista();
       this.GetVeiculo();
