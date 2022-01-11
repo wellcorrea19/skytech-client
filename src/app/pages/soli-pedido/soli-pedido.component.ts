@@ -25,7 +25,7 @@ export class SoliPedidoComponent implements OnInit {
   propList: any;
   motoList: any;
   veicList: any;
-  pedidoNgTemplate: null;
+  pedidoNgTemplate:any = null;
 
   searchValue:string ='';
   searchCidadeValue: string = '';
@@ -138,6 +138,7 @@ export class SoliPedidoComponent implements OnInit {
     const data = this.searchValue.toLowerCase();
     this.filteredList = this.list;
     if (this.searchValue) {
+      this.filteredList.sort((a:any, b:any) =>  new Date(b.dataregistro).getTime() - new Date(a.dataregistro).getTime() );
       this.filteredList = this.list.filter((ele: any, i: any, array: any) => {
         let match = false;
         let arrayelement = '';
@@ -220,6 +221,7 @@ export class SoliPedidoComponent implements OnInit {
     response.subscribe((data:any) => {
         this.FillArray( 'list', data.list)
         this.filteredList = this.list;
+        this.filteredList.sort((a:any, b:any) =>  new Date(b.dataregistro).getTime() - new Date(a.dataregistro).getTime() );
       },
       (err:any) => {
         this.toastr.error(err.error.msg);
@@ -565,6 +567,7 @@ export class SoliPedidoComponent implements OnInit {
           this.FillArray( 'list', data.list);
           this.toastr.success('Cadastrado com sucesso');
           this.GetInfo();
+          this.GetProprietario();
           this.close();
           this.open(this.pedidoNgTemplate, this.pedido, true);
        },
@@ -587,6 +590,7 @@ export class SoliPedidoComponent implements OnInit {
           this.FillArray( 'list', data.list);
           this.toastr.success('Cadastrado com sucesso');
           this.GetInfo();
+          this.GetMotorista();
           this.close();
           this.open(this.pedidoNgTemplate, this.pedido, true);
        },
@@ -609,6 +613,7 @@ export class SoliPedidoComponent implements OnInit {
         this.FillArray( 'list', data.list);
         this.toastr.success('Cadastrado com sucesso');
         this.GetInfo();
+        this.GetVeiculo();
         this.close();
         this.open(this.pedidoNgTemplate, this.pedido, true);
       },
