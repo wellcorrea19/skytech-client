@@ -516,6 +516,17 @@ export class SoliPedidoComponent implements OnInit {
     Inputmask({"mask": "9999"}).mask(anoModVeic);
   }
 
+  pedidoDataRegistro(){
+    let d = new Date();
+    var datestring = 
+    d.getFullYear() + "-" +
+    ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+    ("0" + d.getDate()).slice(-2) + 
+     "T" + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+
+    this.pedido.dataregistro =datestring;
+  }
+
   open(content: any, item: any, dados: boolean = false){
     if(dados){
       this.dados = item;
@@ -556,6 +567,7 @@ export class SoliPedidoComponent implements OnInit {
   
   async insertProprietario() {
     this.proprietario.pedido_id = this.pedido.id;
+    
     const params = {
       method: 'proprietario',
       function: 'insertProprietario',

@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12 text-center">
-            <button class="btn bg-gradient-success mr-1" (click)="open(contentPedido, null)"><i class="fas fa-plus-circle"></i>Novo Pedido</button>
+            <button class="btn bg-gradient-success mr-1" (click)="open(contentPedido, null);pedidoDataRegistro();"><i class="fas fa-plus-circle"></i>Novo Pedido</button>
             <button class="btn bg-gradient-lightblue"><i class="fas fa-print"></i>  Imprimir</button>
           </div>
         </div>
@@ -283,7 +283,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Data Registro</span>
                 </div>
-                <input type="datetime-local" name="data-registro" class="form-control" [(ngModel)]=pedido.dataregistro>
+                <input type="datetime-local" disabled name="data-registro" class="form-control" [(ngModel)]=pedido.dataregistro>
               </div>
             </div>
 
