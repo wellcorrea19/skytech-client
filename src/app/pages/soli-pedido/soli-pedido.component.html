@@ -6,8 +6,8 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12 text-center">
-            <button class="btn bg-gradient-success mr-1" (click)="open(contentPedido, null);pedidoDataRegistro();"><i class="fas fa-plus-circle"></i>Novo Pedido</button>
-            <button class="btn bg-gradient-lightblue"><i class="fas fa-print"></i>  Imprimir</button>
+            <button class="btn bg-gradient-success mr-1" style="color: white;" (click)="open(contentPedido, null);pedidoDataRegistro();"><i class="fas fa-plus-circle pr-2"></i>Novo Pedido</button>
+            <button class="btn bg-gradient-lightblue" style="color: white;"><i class="fas fa-print"></i>  Imprimir</button>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -70,7 +70,7 @@
                   </td>
                   <td>{{item.dataregistro | date:'dd/MM/yyyy HH:mm:ss':'+0000'}}</td>
                   <td>{{item.dataconclusao | date:'dd/MM/yyyy HH:mm:ss':'+0000'}}</td>
-                  <td>{{item.expressa}}</td>
+                  <td style="font-weight: bold;">{{item.expressa}}</td>
                   <td>{{item.vlrmercadoria}}</td>
                   <td>{{item.produtopred}}</td>
                 </tr>
