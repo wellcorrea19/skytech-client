@@ -304,7 +304,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Valor Mercadoria</span>
                 </div>
-                <input (input)="getValorMercadoria($event)" type="text" name="vlr-mercadoria" class="form-control" placeholder="$">
+                <input (input)="getValorMercadoria($event)" type="number" name="vlr-mercadoria" class="form-control" placeholder="$">
               </div>
             </div>
 
@@ -896,7 +896,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Chassi</span>
                 </div>
-                <input [(ngModel)]=veiculo.chassi type="text" name="chassi" class="form-control" maxlength="50" placeholder="Digite chassi">
+                <input [(ngModel)]=veiculo.chassi type="text" style="text-transform: uppercase;" name="chassi" class="form-control" maxlength="17" placeholder="Digite chassi">
               </div>
             </div>
             
@@ -916,7 +916,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Renavan</span>
                 </div>
-                <input [(ngModel)]=veiculo.renavan type="text" name="renavan" class="form-control" maxlength="45" placeholder="0000000">
+                <input [(ngModel)]=veiculo.renavan type="text" name="renavan" class="form-control" maxlength="11" placeholder="Aoenas números">
               </div>
             </div>
             
