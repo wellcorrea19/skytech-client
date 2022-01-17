@@ -90,7 +90,7 @@ import { UtilService } from '../service/util/util.service';
 })
 // tslint:disable-next-line:component-class-suffix
 export class NgbdModalConfirmAutofocus {
-  constructor(public modal: NgbActiveModal) {}
+  constructor(public modal: NgbActiveModal) { }
 }
 
 @Component({
@@ -136,8 +136,19 @@ export class SidebarComponent implements OnInit {
     this.auth.authState.next(false);
   }
 
+  validaRota(rota: string) {
+    if (this.router.url === rota) {
+      return 'active';
+    } else {
+      return '';
+    }
+
+
+
+  }
+
 }
 
-const MODALS: {[name: string]: Type<any> } = {
+const MODALS: { [name: string]: Type<any> } = {
   editdados: NgbdModalConfirmAutofocus
 };
