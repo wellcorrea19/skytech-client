@@ -6,8 +6,8 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12 text-center">
-            <button class="btn bg-gradient-success mr-1" (click)="open(contentPedido, null);pedidoDataRegistro();"><i class="fas fa-plus-circle"></i>Novo Pedido</button>
-            <button class="btn bg-gradient-lightblue"><i class="fas fa-print"></i>  Imprimir</button>
+            <button class="btn bg-gradient-success mr-1" style="color: white;" (click)="open(contentPedido, null);pedidoDataRegistro();"><i class="fas fa-plus-circle pr-2"></i>Novo Pedido</button>
+            <button class="btn bg-gradient-lightblue" style="color: white;"><i class="fas fa-print"></i>  Imprimir</button>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -70,7 +70,7 @@
                   </td>
                   <td>{{item.dataregistro | date:'dd/MM/yyyy HH:mm:ss':'+0000'}}</td>
                   <td>{{item.dataconclusao | date:'dd/MM/yyyy HH:mm:ss':'+0000'}}</td>
-                  <td>{{item.expressa}}</td>
+                  <td style="font-weight: bold;">{{item.expressa}}</td>
                   <td>{{item.vlrmercadoria}}</td>
                   <td>{{item.produtopred}}</td>
                 </tr>
@@ -304,7 +304,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Valor Mercadoria</span>
                 </div>
-                <input (input)="getValorMercadoria($event)" type="text" name="vlr-mercadoria" class="form-control" placeholder="$">
+                <input (input)="getValorMercadoria($event)" type="number" name="vlr-mercadoria" class="form-control" placeholder="$">
               </div>
             </div>
 
@@ -896,7 +896,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Chassi</span>
                 </div>
-                <input [(ngModel)]=veiculo.chassi type="text" name="chassi" class="form-control" maxlength="50" placeholder="Digite chassi">
+                <input [(ngModel)]=veiculo.chassi type="text" style="text-transform: uppercase;" name="chassi" class="form-control" maxlength="17" placeholder="Digite chassi">
               </div>
             </div>
             
@@ -916,7 +916,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Renavan</span>
                 </div>
-                <input [(ngModel)]=veiculo.renavan type="text" name="renavan" class="form-control" maxlength="45" placeholder="0000000">
+                <input [(ngModel)]=veiculo.renavan type="text" name="renavan" class="form-control" maxlength="11" placeholder="Aoenas números">
               </div>
             </div>
             
