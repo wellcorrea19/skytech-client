@@ -25,13 +25,13 @@ export class SoliPedidoComponent implements OnInit {
   propList: any;
   motoList: any;
   veicList: any;
-  pedidoNgTemplate:any = null;
+  pedidoNgTemplate: any = null;
 
-  searchValue:string ='';
+  searchValue: string = '';
   searchCidadeValue: string = '';
   propMotHelper = '0'; // 0 cadastrando proprietario, 1 cadastrando motorista
 
-  pedido: any ={
+  pedido: any = {
     id: null,
     id_empresa: null,
     id_user: null,
@@ -51,72 +51,72 @@ export class SoliPedidoComponent implements OnInit {
   }
 
   proprietario: any = {
-    razao: '', 
-    fantasia: '', 
-    cnpj: '', 
-    ie: '', 
-    rg: '', 
-    orgao_emiss_rg: '', 
-    endereco: '', 
-    numero: '', 
+    razao: '',
+    fantasia: '',
+    cnpj: '',
+    ie: '',
+    rg: '',
+    orgao_emiss_rg: '',
+    endereco: '',
+    numero: '',
     complemento: '',
-    bairro: '', 
-    ibge_endereco: '', 
-    id_cidade_end: '', 
-    cep: '', 
-    email: '', 
+    bairro: '',
+    ibge_endereco: '',
+    id_cidade_end: '',
+    cep: '',
+    email: '',
     telefone: '',
     pedido_id: null,
   }
 
   motorista: any = {
-    nome: '', 
-    cpf: '', 
+    nome: '',
+    cpf: '',
     data_nascimento: '',
-    ibge_cidade_nascimento: '', 
-    endereco: '', 
-    bairro: '', 
-    cep: '', 
-    complemento: '', 
-    numero: '', 
-    ibge_endereco: '', 
-    apelido: '', 
-    sexo: '', 
-    rg: '', 
-    orgao_emissor_rg: '', 
-    data_emiss_rg: '', 
-    num_form_cnh: '', 
-    num_reg_cnh: '', 
-    num_segur_cnh: '', 
-    num_renach_cnh: '', 
-    uf_emiss_cnh: '', 
-    data_emiss_cnh: '', 
-    data_venc_cnh: '', 
-    categoria_cnh: '', 
-    dt_prim_emiss_cnh: '', 
-    possui_mopp: '', 
-    dt_venc_mopp: '', 
-    nome_mae: '', 
-    id_cidade_nasc: '', 
-    id_cidade_end: '', 
-    telefone: '', 
+    ibge_cidade_nascimento: '',
+    endereco: '',
+    bairro: '',
+    cep: '',
+    complemento: '',
+    numero: '',
+    ibge_endereco: '',
+    apelido: '',
+    sexo: '',
+    rg: '',
+    orgao_emissor_rg: '',
+    data_emiss_rg: '',
+    num_form_cnh: '',
+    num_reg_cnh: '',
+    num_segur_cnh: '',
+    num_renach_cnh: '',
+    uf_emiss_cnh: '',
+    data_emiss_cnh: '',
+    data_venc_cnh: '',
+    categoria_cnh: '',
+    dt_prim_emiss_cnh: '',
+    possui_mopp: '',
+    dt_venc_mopp: '',
+    nome_mae: '',
+    id_cidade_nasc: '',
+    id_cidade_end: '',
+    telefone: '',
     celular: '',
     pedido_id: null,
   }
 
   veiculo: any = {
-    placa: '', 
-    tipo_veiculo: '', 
-    chassi: '', 
-    cor: '', 
-    renavan: '', 
-    ano_fabricacao: '', 
+    placa: '',
+    tipo_veiculo: '',
+    chassi: '',
+    cor: '',
+    renavan: '',
+    ano_fabricacao: '',
     ano_modelo: '',
-    marca: '', 
+    marca: '',
     modelo: '',
     pedido_id: null,
   }
-  
+
   constructor(
     private router: Router,
     public modal: NgbActiveModal,
@@ -138,56 +138,56 @@ export class SoliPedidoComponent implements OnInit {
     const data = this.searchValue.toLowerCase();
     this.filteredList = this.list;
     if (this.searchValue) {
-      this.filteredList.sort((a:any, b:any) =>  new Date(b.dataregistro).getTime() - new Date(a.dataregistro).getTime() );
+      this.filteredList.sort((a: any, b: any) => new Date(b.dataregistro).getTime() - new Date(a.dataregistro).getTime());
       this.filteredList = this.list.filter((ele: any, i: any, array: any) => {
         let match = false;
         let arrayelement = '';
-        
+
         if (ele.protocolo) {
           arrayelement = ele.protocolo.toLowerCase();
-          arrayelement.includes(data) ? match=true : null;
+          arrayelement.includes(data) ? match = true : null;
         }
 
         if (ele.id_empresa) {
-          for(let empresa of this.empresas) {
-            if(ele.id_empresa === empresa.id) { 
+          for (let empresa of this.empresas) {
+            if (ele.id_empresa === empresa.id) {
               arrayelement = empresa.razaosocial.toLowerCase();
               break;
             }
           };
-          arrayelement.includes(data) ? match=true : null;
+          arrayelement.includes(data) ? match = true : null;
         }
-        
+
         if (ele.tipo_pedido) {
           arrayelement = ele.tipo_pedido.toLowerCase();
-          arrayelement.includes(data) ? match=true : null;
+          arrayelement.includes(data) ? match = true : null;
         }
 
         if (ele.dataregistro) {
           arrayelement = new Date(ele.dataregistro).toString();
-          arrayelement.includes(data) ? match=true : null;
+          arrayelement.includes(data) ? match = true : null;
         }
 
         if (ele.expressa) {
           arrayelement = ele.expressa.toLowerCase();
-          arrayelement.includes(data) ? match=true : null;
+          arrayelement.includes(data) ? match = true : null;
         }
 
         if (ele.vlrmercadoria) {
           arrayelement = ele.vlrmercadoria;
-          String(arrayelement).includes(data) ? match=true : null;
+          String(arrayelement).includes(data) ? match = true : null;
         }
 
         if (ele.produtopred) {
           arrayelement = ele.produtopred.toLowerCase();
-          arrayelement.includes(data) ? match=true : null;
+          arrayelement.includes(data) ? match = true : null;
         }
 
         return match;
       });
     }
   }
-  
+
   searchCidade() {
     const data = this.searchCidadeValue.toLowerCase();
     this.filteredCidades = this.cidades;
@@ -197,7 +197,7 @@ export class SoliPedidoComponent implements OnInit {
         let arrayelement = '';
 
         arrayelement = ele.nome_cidade.toLowerCase();
-        arrayelement.includes(data) ? match=true : null;
+        arrayelement.includes(data) ? match = true : null;
 
         return match;
       });
@@ -218,35 +218,35 @@ export class SoliPedidoComponent implements OnInit {
 
     this.api.AccessApi(params).then((response) => {
 
-    response.subscribe((data:any) => {
-        this.FillArray( 'list', data.list)
+      response.subscribe((data: any) => {
+        this.FillArray('list', data.list)
         this.filteredList = this.list;
-        this.filteredList.sort((a:any, b:any) =>  new Date(b.dataregistro).getTime() - new Date(a.dataregistro).getTime() );
+        this.filteredList.sort((a: any, b: any) => new Date(b.dataregistro).getTime() - new Date(a.dataregistro).getTime());
       },
-      (err:any) => {
-        this.toastr.error(err.error.msg);
-      });
+        (err: any) => {
+          this.toastr.error(err.error.msg);
+        });
     });
   }
 
   // Get pedido item
   async GetPedidoItem() {
     const params = {
-      method: 'pedidoitembypedido/'+this.dados.id,
+      method: 'pedidoitembypedido/' + this.dados.id,
       function: 'getPedidoItemByPedido',
       type: 'get'
     };
 
     this.api.AccessApi(params).then((response) => {
-      response.subscribe((data:any) => {
-          this.FillArray( 'sublist', data.list)
-        },
-        (err:any) => {
+      response.subscribe((data: any) => {
+        this.FillArray('sublist', data.list)
+      },
+        (err: any) => {
           this.toastr.error(err.error.msg);
         });
-      });
+    });
   }
-  
+
   // Get proprietario
   async GetProprietario() {
     const pedido_id = this.pedido.id;
@@ -257,15 +257,15 @@ export class SoliPedidoComponent implements OnInit {
     };
 
     this.api.AccessApi(params).then((response) => {
-      response.subscribe((data:any) => {
-          this.FillArray( 'proprietarios', data.list)
-        },
-        (err:any) => {
+      response.subscribe((data: any) => {
+        this.FillArray('proprietarios', data.list)
+      },
+        (err: any) => {
           this.toastr.error(err.error.msg);
         });
-      });
+    });
   }
-  
+
   // Get motorista
   async GetMotorista() {
     const pedido_id = this.pedido.id;
@@ -276,15 +276,15 @@ export class SoliPedidoComponent implements OnInit {
     };
 
     this.api.AccessApi(params).then((response) => {
-      response.subscribe((data:any) => {
-          this.FillArray( 'motoristas', data.list)
-        },
-        (err:any) => {
+      response.subscribe((data: any) => {
+        this.FillArray('motoristas', data.list)
+      },
+        (err: any) => {
           this.toastr.error(err.error.msg);
         });
-      });
+    });
   }
-  
+
   // Get veiculo
   async GetVeiculo() {
     const pedido_id = this.pedido.id;
@@ -295,13 +295,13 @@ export class SoliPedidoComponent implements OnInit {
     };
 
     this.api.AccessApi(params).then((response) => {
-      response.subscribe((data:any) => {
-          this.FillArray( 'veiculos', data.list)
-        },
-        (err:any) => {
+      response.subscribe((data: any) => {
+        this.FillArray('veiculos', data.list)
+      },
+        (err: any) => {
           this.toastr.error(err.error.msg);
         });
-      });
+    });
   }
 
   // Get tipo pedido
@@ -313,13 +313,13 @@ export class SoliPedidoComponent implements OnInit {
     };
 
     this.api.AccessApi(params).then((response) => {
-      response.subscribe((data:any) => {
-          this.FillArray( 'tipo', data.list)
-        },
-        (err:any) => {
+      response.subscribe((data: any) => {
+        this.FillArray('tipo', data.list)
+      },
+        (err: any) => {
           this.toastr.error(err.error.msg);
         });
-      });
+    });
   }
 
   // Get empresas 
@@ -332,12 +332,12 @@ export class SoliPedidoComponent implements OnInit {
 
     this.api.AccessApi(params).then((response) => {
 
-    response.subscribe((data:any) => {
-        this.FillArray( 'empresas', data.list)
+      response.subscribe((data: any) => {
+        this.FillArray('empresas', data.list)
       },
-      (err:any) => {
-        this.toastr.error(err.error.msg);
-      });
+        (err: any) => {
+          this.toastr.error(err.error.msg);
+        });
     });
   }
 
@@ -351,15 +351,15 @@ export class SoliPedidoComponent implements OnInit {
 
     this.api.AccessApi(params).then((response) => {
 
-    response.subscribe((data:any) => {
-        this.FillArray( 'forma', data.list)
+      response.subscribe((data: any) => {
+        this.FillArray('forma', data.list)
       },
-      (err:any) => {
-        this.toastr.error(err.error.msg);
-      });
+        (err: any) => {
+          this.toastr.error(err.error.msg);
+        });
     });
   }
-  
+
   // Get Cidades
   async GetCidades() {
     const params = {
@@ -370,13 +370,13 @@ export class SoliPedidoComponent implements OnInit {
 
     this.api.AccessApi(params).then((response) => {
 
-    response.subscribe((data:any) => {
-        this.FillArray( 'cidades', data.list)
+      response.subscribe((data: any) => {
+        this.FillArray('cidades', data.list)
         this.filteredCidades = this.cidades;
       },
-      (err:any) => {
-        this.toastr.error(err.error.msg);
-      });
+        (err: any) => {
+          this.toastr.error(err.error.msg);
+        });
     });
   }
 
@@ -395,7 +395,7 @@ export class SoliPedidoComponent implements OnInit {
     // tslint:disable-next-line:object-literal-key-quotes
     this.pedido.id_formapedido = $event.target.value;
   }
-  
+
   getDataRegistro($event: any) {
     // tslint:disable-next-line:object-literal-key-quotes
     this.pedido.dataregistro = $event.target.value;
@@ -406,7 +406,7 @@ export class SoliPedidoComponent implements OnInit {
     // tslint:disable-next-line:object-literal-key-quotes
     this.pedido.expressa = $event.target.value;
   }
-  
+
   getValorMercadoria($event: any) {
     // tslint:disable-next-line:object-literal-key-quotes
     this.pedido.vlrmercadoria = $event.target.value;
@@ -417,7 +417,7 @@ export class SoliPedidoComponent implements OnInit {
   }
 
   // Filtrar arrays
-  FillArray(name: string, values: Array<any>) {    
+  FillArray(name: string, values: Array<any>) {
     var util = require('type-util');
     if (util.isArray(values)) {
       //pedidos
@@ -426,7 +426,7 @@ export class SoliPedidoComponent implements OnInit {
           if (a.dataregistro > b.dataregistro) {
             return 1;
           }
-    
+
           return -1;
         });
         this.list = values;
@@ -460,17 +460,17 @@ export class SoliPedidoComponent implements OnInit {
     }
   }
 
-  goNavigate(path: any){
+  goNavigate(path: any) {
     this.router.navigate([path]);
   }
 
-  openCadastro(content: any){
+  openCadastro(content: any) {
     this.GetEmpresas();
     this.GetFormaPedido();
     this.modalService.open(content, { size: 'lg' });
   }
 
-  openConsulta(content: any){
+  openConsulta(content: any) {
     this.GetEmpresas();
     this.GetFormaPedido();
     this.modalService.open(content, { size: 'lg' });
@@ -484,51 +484,51 @@ export class SoliPedidoComponent implements OnInit {
 
     //inputmasks proprietario
     const ibgeProprietario = document.getElementById('ibge-proprietario')!;
-    Inputmask({"mask": "9999999"}).mask(ibgeProprietario);
+    Inputmask({ "mask": "9999999" }).mask(ibgeProprietario);
     const numeroProprietario = document.getElementById('numero-proprietario')!;
-    Inputmask({"mask": "99999"}).mask(numeroProprietario);
+    Inputmask({ "mask": "99999" }).mask(numeroProprietario);
     const telefoneProprietario = document.getElementById('telefone-proprietario')!;
-    Inputmask({"mask": "(99)9{4}-9{4,5}"}).mask(telefoneProprietario);
+    Inputmask({ "mask": "(99)9{4}-9{4,5}" }).mask(telefoneProprietario);
 
     //inputmasks motorista
     const ibgeNascMotor = document.getElementById('ibge-nasc-motorista')!;
-    Inputmask({"mask": "9999999"}).mask(ibgeNascMotor);
+    Inputmask({ "mask": "9999999" }).mask(ibgeNascMotor);
     const ibgeEndMotor = document.getElementById('ibge-end-motorista')!;
-    Inputmask({"mask": "9999999"}).mask(ibgeEndMotor);
+    Inputmask({ "mask": "9999999" }).mask(ibgeEndMotor);
     const numFormCnhMotor = document.getElementById('num-form-cnh-motorista')!;
-    Inputmask({"mask": "9{1,10}"}).mask(numFormCnhMotor);
+    Inputmask({ "mask": "9{1,10}" }).mask(numFormCnhMotor);
     const numRegCnhMotor = document.getElementById('num-reg-cnh-motorista')!;
-    Inputmask({"mask": "9{1,10}"}).mask(numRegCnhMotor);
+    Inputmask({ "mask": "9{1,10}" }).mask(numRegCnhMotor);
     const telefoneMotorista = document.getElementById('telefone-motorista')!;
-    Inputmask({"mask": "(99)9{4}-9{4,5}"}).mask(telefoneMotorista);
+    Inputmask({ "mask": "(99)9{4}-9{4,5}" }).mask(telefoneMotorista);
     const celularMotorista = document.getElementById('celular-motorista')!;
-    Inputmask({"mask": "(99)9{4}-9{4,5}"}).mask(celularMotorista);
+    Inputmask({ "mask": "(99)9{4}-9{4,5}" }).mask(celularMotorista);
   }
-  
+
   openVeiculo(content: any) {
     Object.keys(this.veiculo).forEach(key => this.veiculo[key] = null);
     this.modalService.open(content, { size: 'lg' });
 
     //inputmasks veiculo
     const anoFabVeic = document.getElementById('ano-fab-veiculo')!;
-    Inputmask({"mask": "9999"}).mask(anoFabVeic);
+    Inputmask({ "mask": "9999" }).mask(anoFabVeic);
     const anoModVeic = document.getElementById('ano-mod-veiculo')!;
-    Inputmask({"mask": "9999"}).mask(anoModVeic);
+    Inputmask({ "mask": "9999" }).mask(anoModVeic);
   }
 
-  pedidoDataRegistro(){
+  pedidoDataRegistro() {
     let d = new Date();
-    var datestring = 
-    d.getFullYear() + "-" +
-    ("0"+(d.getMonth()+1)).slice(-2) + "-" +
-    ("0" + d.getDate()).slice(-2) + 
-     "T" + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+    var datestring =
+      d.getFullYear() + "-" +
+      ("0" + (d.getMonth() + 1)).slice(-2) + "-" +
+      ("0" + d.getDate()).slice(-2) +
+      "T" + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
 
-    this.pedido.dataregistro =datestring;
+    this.pedido.dataregistro = datestring;
   }
 
-  open(content: any, item: any, dados: boolean = false){
-    if(dados){
+  open(content: any, item: any, dados: boolean = false) {
+    if (dados) {
       this.dados = item;
       this.pedido = this.dados;
       this.pedidoNgTemplate = content;
@@ -536,11 +536,11 @@ export class SoliPedidoComponent implements OnInit {
       this.GetMotorista();
       this.GetVeiculo();
     }
-    
+
     this.modalService.open(content, { size: 'lg' });
   }
 
-  close(){
+  close() {
     this.modalService.dismissAll();
   }
 
@@ -550,43 +550,50 @@ export class SoliPedidoComponent implements OnInit {
       method: 'pedido',
       function: 'insertPedido',
       type: 'post',
-      data:this.pedido
+      data: this.pedido
     };
     this.api.AccessApi(params).then((response) => {
-     response.subscribe((data:any) => {
-          this.FillArray( 'list', data.list);
-          this.toastr.success('Cadastrado com sucesso');
-          this.GetInfo();
-          this.close();
-       },
-       (err:any) => {
-         this.toastr.error(err.error.msg);
-       });
-     });
+      response.subscribe((data: any) => {
+        this.FillArray('list', data.list);
+        this.toastr.success('Cadastrado com sucesso');
+        this.GetInfo();
+        this.close();
+      },
+        (err: any) => {
+          this.toastr.error(err.error.msg);
+        });
+    });
   }
-  
+
   async insertProprietario() {
     this.proprietario.pedido_id = this.pedido.id;
-    
+
+    if (!this.proprietario.razao) {
+      this.proprietario.razao = this.proprietario.fantasia
+    }
+    else {
+      this.proprietario.fantasia = this.proprietario.razao
+    }
+
     const params = {
       method: 'proprietario',
       function: 'insertProprietario',
       type: 'post',
-      data:this.proprietario
+      data: this.proprietario
     };
     this.api.AccessApi(params).then((response) => {
-     response.subscribe((data:any) => {
-          this.FillArray( 'list', data.list);
-          this.toastr.success('Cadastrado com sucesso');
-          this.GetInfo();
-          this.GetProprietario();
-          this.close();
-          this.open(this.pedidoNgTemplate, this.pedido, true);
-       },
-       (err:any) => {
-         this.toastr.error(err.error.msg);
-       });
-     });
+      response.subscribe((data: any) => {
+        this.FillArray('list', data.list);
+        this.toastr.success('Cadastrado com sucesso');
+        this.GetInfo();
+        this.GetProprietario();
+        this.close();
+        this.open(this.pedidoNgTemplate, this.pedido, true);
+      },
+        (err: any) => {
+          this.toastr.error(err.error.msg);
+        });
+    });
   }
 
   async insertMotorista() {
@@ -595,21 +602,21 @@ export class SoliPedidoComponent implements OnInit {
       method: 'motorista',
       function: 'insertMotorista',
       type: 'post',
-      data:this.motorista
+      data: this.motorista
     };
     this.api.AccessApi(params).then((response) => {
-     response.subscribe((data:any) => {
-          this.FillArray( 'list', data.list);
-          this.toastr.success('Cadastrado com sucesso');
-          this.GetInfo();
-          this.GetMotorista();
-          this.close();
-          this.open(this.pedidoNgTemplate, this.pedido, true);
-       },
-       (err:any) => {
-         this.toastr.error(err.error.msg);
-       });
-     });
+      response.subscribe((data: any) => {
+        this.FillArray('list', data.list);
+        this.toastr.success('Cadastrado com sucesso');
+        this.GetInfo();
+        this.GetMotorista();
+        this.close();
+        this.open(this.pedidoNgTemplate, this.pedido, true);
+      },
+        (err: any) => {
+          this.toastr.error(err.error.msg);
+        });
+    });
   }
 
   async insertVeiculo() {
@@ -618,21 +625,21 @@ export class SoliPedidoComponent implements OnInit {
       method: 'veiculo',
       function: 'insertVeiculo',
       type: 'post',
-      data:this.veiculo
+      data: this.veiculo
     };
     this.api.AccessApi(params).then((response) => {
-      response.subscribe((data:any) => {
-        this.FillArray( 'list', data.list);
+      response.subscribe((data: any) => {
+        this.FillArray('list', data.list);
         this.toastr.success('Cadastrado com sucesso');
         this.GetInfo();
         this.GetVeiculo();
         this.close();
         this.open(this.pedidoNgTemplate, this.pedido, true);
       },
-      (err:any) => {
-        this.toastr.error(err.error.msg);
-      });
-    }).catch((error:any) => {
+        (err: any) => {
+          this.toastr.error(err.error.msg);
+        });
+    }).catch((error: any) => {
       console.log(error);
     });
   }
