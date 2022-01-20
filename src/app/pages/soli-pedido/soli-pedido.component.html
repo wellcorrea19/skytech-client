@@ -377,10 +377,10 @@
         <div [hidden]="propMotHelper!=='0'" class="row">
 
           <!-- 1ncode: CNPJ - Novo Proprietário -->
-          <div class="col-md-6 col-sm-6 col-12">
+          <div class="col-md-12 col-sm-12 col-12">
             <div class="input-group mb-2">
               <div class="input-group-prepend">
-                <span class="input-group-text">CNPJ/CPF</span>
+                <span class="input-group-text">CNPJ / CPF</span>
               </div>
               <select [(ngModel)]=proprietario.tipoDocumento class="form-control" name="tipoDocumento">
                 <option value="" disabled>Selecione</option>
@@ -396,7 +396,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">CNPJ</span>
               </div>
-              <input [(ngModel)]=proprietario.cnpj type="text" name="cnpj" class="form-control" placeholder="00000000">
+              <input [(ngModel)]=proprietario.cnpj type="text" name="cnpj" maxlength="14" class="form-control" placeholder="00000000">
             </div>
           </div>
 
@@ -526,7 +526,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">IBGE Endereço</span>
               </div>
-              <input id="ibge-proprietario" [(ngModel)]=proprietario.ibge_endereco type="text" name="ibge_endereco"
+              <input id="ibge-proprietario" [(ngModel)]=proprietario.ibge_endereco type="text" maxlength="7" name="ibge_endereco"
                 class="form-control" placeholder="IBGE do endereço">
             </div>
           </div>
@@ -575,7 +575,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Telefone</span>
               </div>
-              <input id="telefone-proprietario" [(ngModel)]=proprietario.telefone type="text" name="telefone"
+              <input id="telefone-proprietario" [(ngModel)]=proprietario.telefone type="text" maxlength="13" name="telefone"
                 class="form-control" placeholder="(99) 99999999">
             </div>
           </div>
