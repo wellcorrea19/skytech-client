@@ -277,7 +277,14 @@ export class SoliPedidoComponent implements OnInit {
 
     this.api.AccessApi(params).then((response) => {
       response.subscribe((data: any) => {
-        this.FillArray('motoristas', data.list)
+        this.FillArray('motoristas', data.list);
+        this.propList.forEach((prop:any) => {
+          if(prop.motorista_id){
+            this.motoList.forEach((motorista:any) => {
+              motorista.proprietario = prop.razao;
+            });
+          }
+        });
       },
         (err: any) => {
           this.toastr.error(err.error.msg);
@@ -540,6 +547,12 @@ export class SoliPedidoComponent implements OnInit {
     this.modalService.open(content, { size: 'lg' });
   }
 
+  openVinculoProp(content: any,prop:any){
+    this.proprietario = prop;
+    this.GetMotorista();
+    this.modalService.open(content, { size: 'lg' });
+  }
+
   close() {
     this.modalService.dismissAll();
   }
@@ -585,6 +598,37 @@ export class SoliPedidoComponent implements OnInit {
       response.subscribe((data: any) => {
         this.FillArray('list', data.list);
         this.toastr.success('Cadastrado com sucesso');
+        this.GetInfo();
+        this.GetProprietario();
+        this.close();
+        this.open(this.pedidoNgTemplate, this.pedido, true);
+      },
+        (err: any) => {
+          this.toastr.error(err.error.msg);
+        });
+    });
+  }
+
+  async updateProprietario() {
+    this.proprietario.pedido_id = this.pedido.id;
+
+    if (!this.proprietario.razao) {
+      this.proprietario.razao = this.proprietario.fantasia
+    }
+    else {
+      this.proprietario.fantasia = this.proprietario.razao
+    }
+
+    const params = {
+      method: 'proprietario',
+      function: 'updateProprietario',
+      type: 'put',
+      data: this.proprietario
+    };
+    this.api.AccessApi(params).then((response) => {
+      response.subscribe((data: any) => {
+        this.FillArray('list', data.list);
+        this.toastr.success('Atualizado com sucesso');
         this.GetInfo();
         this.GetProprietario();
         this.close();

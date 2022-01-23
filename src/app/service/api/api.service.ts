@@ -28,11 +28,20 @@ export class ApiService {
       return this.post(params, headers);
     }
 
+    if (params.type === 'put') {
+      return this.put(params, headers);
+    }
+
+
     return this.get(params, headers);
 
   }
   private post({url, method, data}: any, headers: HttpHeaders) {
     return this.http.post(url + method, data, {headers});
+  }
+
+  private put({url, method, data}: any, headers: HttpHeaders) {
+    return this.http.put(url + method, data, {headers});
   }
 
   private get({url, method}: any, headers: HttpHeaders) {
